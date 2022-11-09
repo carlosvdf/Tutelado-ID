@@ -14,7 +14,7 @@ initialValue=0, allocationSize=1)
 @NamedQueries ({
 	@NamedQuery (name="Plato.recuperaPorNombre",
 				 query="SELECT p FROM Plato p where p.nombre=:nombre"),
-	@NamedQuery (name="Mesa.recuperaTodas",
+	@NamedQuery (name="Plato.recuperaTodas",
 	 			 query="SELECT p FROM Plato p")
                  //Añadir más
 })
@@ -32,11 +32,11 @@ public class Plato {
     private String tipo;
 
     @Column(unique=false, nullable = false)
+	@ElementCollection
     private List<String> ingredientes = new ArrayList<String>();
 
     @ManyToMany (cascade={}, fetch=FetchType.EAGER)
     @OrderBy("nif ASC")
-    @JoinColumn (nullable=false, unique=false)
     private SortedSet<Cocinero> cocineros = new TreeSet<Cocinero>();
 
     public Long getId() {

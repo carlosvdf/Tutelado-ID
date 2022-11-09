@@ -13,7 +13,7 @@ initialValue=0, allocationSize=1)
 	@NamedQuery (name="Mesa.recuperaTodasCamarero",
 	 			 query="SELECT m FROM Mesa m JOIN m.camarero c WHERE c=:c"),
 	@NamedQuery (name="Mesa.recuperaTodas",
-	 			 query="SELECT m FROM Mesa m")
+				 query="SELECT m FROM Mesa m")
 })
 
 @Entity
