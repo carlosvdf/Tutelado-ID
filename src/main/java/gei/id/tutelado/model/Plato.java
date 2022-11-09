@@ -1,8 +1,6 @@
 package gei.id.tutelado.model;
 
 import javax.persistence.*;
-import java.util.SortedSet;
-import java.util.TreeSet;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -15,8 +13,10 @@ initialValue=0, allocationSize=1)
 	@NamedQuery (name="Plato.recuperaPorNombre",
 				 query="SELECT p FROM Plato p where p.nombre=:nombre"),
 	@NamedQuery (name="Plato.recuperaTodas",
-	 			 query="SELECT p FROM Plato p")
-                 //Añadir más
+	 			 query="SELECT p FROM Plato p"),
+	@NamedQuery (name="Plato.recuperaTodasTipo",
+				 query="SELECT p FROM Plato p where p.tipo=:tipo")
+				 //Añadir por ingrediente?
 })
 
 @Entity
@@ -34,10 +34,6 @@ public class Plato {
     @Column(unique=false, nullable = false)
 	@ElementCollection
     private List<String> ingredientes = new ArrayList<String>();
-
-    @ManyToMany (cascade={}, fetch=FetchType.EAGER)
-    @OrderBy("nif ASC")
-    private SortedSet<Cocinero> cocineros = new TreeSet<Cocinero>();
 
     public Long getId() {
 		return id;
