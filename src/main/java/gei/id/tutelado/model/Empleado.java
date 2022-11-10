@@ -15,6 +15,7 @@ initialValue=0, allocationSize=1)
 })
 
 @Entity
+@Inheritance(strategy=InheritanceType.JOINED)
 public abstract class Empleado {
     @Id
     @GeneratedValue(generator="xeradorIdsEmpleados")
