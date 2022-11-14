@@ -121,7 +121,7 @@ public class ProdutorDatos {
 			while (itM.hasNext()) em.remove(itM.next());		
 
 			
-			em.createNativeQuery("UPDATE taboa_ids SET ultimo_valor_id=0 WHERE nome_id='idEmpleados'" ).executeUpdate();
+			em.createNativeQuery("UPDATE taboa_ids SET ultimo_valor_id=0 WHERE nome_id='idEmpleado'" ).executeUpdate();
 			em.createNativeQuery("UPDATE taboa_ids SET ultimo_valor_id=0 WHERE nome_id='idMesa'" ).executeUpdate();
 
 			em.getTransaction().commit();
