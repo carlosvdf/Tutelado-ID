@@ -20,85 +20,102 @@ public class ProdutorDatosProba {
 	
 	private EntityManagerFactory emf=null;
 	
-	public Usuario u0, u1;
-	public List<Usuario> listaxeU;
-	
-	public EntradaLog e1A, e1B;
-	public List<EntradaLog> listaxeE;
+	public Empleado e0, e1;
+	public List<Empleado> listaxeE;
+
+	public Cocinero c0, c1;
+	public List<Cocinero> listaxeC;
+	public Plato p1, p2;
+	public List<Plato> listaxeP;
 	
 	
 	
 	public void Setup (Configuracion config) {
 		this.emf=(EntityManagerFactory) config.get("EMF");
 	}
-	
-	public void creaUsuariosSoltos() {
 
-		// Crea dous usuarios EN MEMORIA: u0, u1
-		// SEN entradas de log
-		
-		this.u0 = new Usuario();
-        this.u0.setNif("000A");
-        this.u0.setNome("Usuario cero");
-        this.u0.setDataAlta(LocalDate.now());
 
-        this.u1 = new Usuario();
-        this.u1.setNif("111B");
-        this.u1.setNome("Usuaria un");
-        this.u1.setDataAlta(LocalDate.now());
+	public void creaCocinerosSoltos() {
 
-        this.listaxeU = new ArrayList<Usuario> ();
-        this.listaxeU.add(0,u0);
-        this.listaxeU.add(1,u1);        
+		// Crea dous cocineros EN MEMORIA: c0, c1
+		// SEN platos
 
-	}
-	
-	public void creaEntradasLogSoltas () {
 
-		// Crea duas entradas de log EN MEMORIA: e1a, e1b
-		// Sen usuario asignado (momentaneamente)
-		
-		this.e1A=new EntradaLog();
-        this.e1A.setCodigo("E001");
-        this.e1A.setDescricion ("Modificado contrasinal por defecto");
-        this.e1A.setDataHora(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
 
-        this.e1B=new EntradaLog();
-        this.e1B.setCodigo("E002");
-        this.e1B.setDescricion ("Acceso a zona reservada");
-        this.e1B.setDataHora(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
+		this.c0 = new Cocinero();
+		this.c0.setNif("000A");
+		this.c0.setNombre("Cocinero cero");
+		this.c0.setApellido1("Cero");
+		this.c0.setApellido2("Cero");
+		this.c0.setTelefono("000000");
 
-        this.listaxeE = new ArrayList<EntradaLog> ();
-        this.listaxeE.add(0,this.e1A);
-        this.listaxeE.add(1,this.e1B);        
+
+		this.c1 = new Cocinero();
+		this.c1.setNif("111A");
+		this.c1.setNombre("Cocinero uno");
+		this.c1.setApellido1("Uno");
+		this.c1.setApellido2("Uno");
+		this.c1.setTelefono("111111");
+
+		this.listaxeC = new ArrayList<Cocinero> ();
+		this.listaxeC.add(0,c0);
+		this.listaxeC.add(1,c1);
 
 	}
 	
-	public void creaUsuariosConEntradasLog () {
+	public void creaPlatosSoltos () {
 
-		this.creaUsuariosSoltos();
-		this.creaEntradasLogSoltas();
+		// Crea dous platos EN MEMORIA: p1, p2
+		// Sen empleado asignado (momentaneamente)
 		
-        this.u1.engadirEntradaLog(this.e1A);
-        this.u1.engadirEntradaLog(this.e1B);
+		this.p1=new Plato();
+		this.p1.setNombre("Macarrones con queso");
+		List<String> ingredientes1 = new ArrayList<>();
+		ingredientes1.add(0, "Macarrones");
+		ingredientes1.add(1, "Tomate frito");
+		ingredientes1.add(2, "Queso en polvo");
+		this.p1.setIngredientes(ingredientes1);
+
+		this.p2=new Plato();
+		this.p2.setNombre("Huevos rotos con jamon");
+		List<String> ingredientes2 = new ArrayList<>();
+		ingredientes1.add(1, "Huevos");
+		ingredientes1.add(2, "Patatas");
+		ingredientes1.add(3, "Jamon");
+		this.p2.setIngredientes(ingredientes2);
+
+        this.listaxeP = new ArrayList<Plato> ();
+        this.listaxeP.add(0,this.p1);
+        this.listaxeP.add(1,this.p2);
 
 	}
 	
-	public void gravaUsuarios() {
+	public void creaCocinerosConPlatos () {
+
+		this.creaCocinerosSoltos();
+		this.creaPlatosSoltos();
+		
+        this.c1.engadirPlato(p1);
+		this.c1.engadirPlato(p2);
+
+	}
+
+
+	public void gravaCocineros() {
 		EntityManager em=null;
 		try {
 			em = emf.createEntityManager();
 			em.getTransaction().begin();
 
-			Iterator<Usuario> itU = this.listaxeU.iterator();
-			while (itU.hasNext()) {
-				Usuario u = itU.next();
-				em.persist(u);
+			Iterator<Cocinero> itC = this.listaxeC.iterator();
+			while (itC.hasNext()) {
+				Cocinero c = itC.next();
+				em.persist(c);
 				// DESCOMENTAR SE A PROPAGACION DO PERSIST NON ESTA ACTIVADA
 				/*
-				Iterator<EntradaLog> itEL = u.getEntradasLog().iterator();
-				while (itEL.hasNext()) {
-					em.persist(itEL.next());
+				Iterator<Plato> it<p = c.getPlatos().iterator();
+				while (itP.hasNext()) {
+					em.persist(itP.next());
 				}
 				*/
 			}
@@ -119,14 +136,14 @@ public class ProdutorDatosProba {
 			em = emf.createEntityManager();
 			em.getTransaction().begin();
 			
-			Iterator <Usuario> itU = em.createNamedQuery("Usuario.recuperaTodos", Usuario.class).getResultList().iterator();
-			while (itU.hasNext()) em.remove(itU.next());
-			Iterator <EntradaLog> itL = em.createNamedQuery("EntradaLog.recuperaTodas", EntradaLog.class).getResultList().iterator();
-			while (itL.hasNext()) em.remove(itL.next());		
+			Iterator <Cocinero> itC = em.createNamedQuery("Cocinero.recuperaTodos", Cocinero.class).getResultList().iterator();
+			while (itC.hasNext()) em.remove(itC.next());
+			Iterator <Plato> itP = em.createNamedQuery("Plato.recuperaTodos", Plato.class).getResultList().iterator();
+			while (itP.hasNext()) em.remove(itP.next());
 
 			
-			em.createNativeQuery("UPDATE taboa_ids SET ultimo_valor_id=0 WHERE nome_id='idUsuario'" ).executeUpdate();
-			em.createNativeQuery("UPDATE taboa_ids SET ultimo_valor_id=0 WHERE nome_id='idEntradaLog'" ).executeUpdate();
+			em.createNativeQuery("UPDATE taboa_ids SET ultimo_valor_id=0 WHERE nome_id='idEmpleado'" ).executeUpdate();
+			em.createNativeQuery("UPDATE taboa_ids SET ultimo_valor_id=0 WHERE nome_id='idPlato'" ).executeUpdate();
 
 			em.getTransaction().commit();
 			em.close();

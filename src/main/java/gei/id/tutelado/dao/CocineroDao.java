@@ -8,4 +8,6 @@ import java.util.List;
 public interface CocineroDao extends EmpleadoDao {
 
     List<Plato> recuperaPlatos(Cocinero cocinero);
+
+    List<String> findByIngrediente (String ingrediente);
 }

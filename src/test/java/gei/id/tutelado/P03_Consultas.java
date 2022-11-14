@@ -88,7 +88,7 @@ public class P03_Consultas {
 	public void tearDown() throws Exception {
 	}	
 
-	
+	/*
     @Test 
     public void test06_todosU() {
 
@@ -142,5 +142,5 @@ public class P03_Consultas {
 		Assert.assertEquals(produtorDatos.e1B, listaE.get(1));
 
     }
-
+*/
 }

@@ -87,6 +87,11 @@ public class CocineroDaoJPA implements CocineroDao{
     }
 
     @Override
+    public List<Empleado> recuperaTodos() {
+        return null;
+    }
+
+    @Override
     public Empleado recuperaPorNif(String nif) {
         List<Empleado> empleados=null;
 
@@ -134,6 +139,31 @@ public class CocineroDaoJPA implements CocineroDao{
         }
 
         return (platos);
+    }
+
+    @Override
+    public List<String> findByIngrediente(String ingrediente) {
+        List<String> ingredientes=null;
+
+        try {
+            em = emf.createEntityManager();
+            em.getTransaction().begin();
+
+            ingredientes = em.createNamedQuery("Cocinero.findByIngrediente", String.class).setParameter("i", ingrediente).getResultList();
+
+            em.getTransaction().commit();
+            em.close();
+
+        }
+        catch (Exception ex ) {
+            if (em!=null && em.isOpen()) {
+                if (em.getTransaction().isActive()) em.getTransaction().rollback();
+                em.close();
+                throw(ex);
+            }
+        }
+
+        return (ingredientes);
     }
 
 }

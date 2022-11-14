@@ -7,6 +7,7 @@ import javax.persistence.EntityManagerFactory;
 
 import gei.id.tutelado.configuracion.Configuracion;
 import gei.id.tutelado.model.Empleado;
+import gei.id.tutelado.model.Usuario;
 
 public class EmpleadoDaoJPA implements EmpleadoDao{
     
@@ -85,7 +86,32 @@ public class EmpleadoDaoJPA implements EmpleadoDao{
 		}
 	}
 
-    @Override
+	@Override
+	public List<Empleado> recuperaTodos() {
+		List <Empleado> empleados=null;
+
+		try {
+			em = emf.createEntityManager();
+			em.getTransaction().begin();
+
+			empleados = em.createNamedQuery("Empleado.recuperaTodos", Empleado.class).getResultList();
+
+			em.getTransaction().commit();
+			em.close();
+
+		}
+		catch (Exception ex ) {
+			if (em!=null && em.isOpen()) {
+				if (em.getTransaction().isActive()) em.getTransaction().rollback();
+				em.close();
+				throw(ex);
+			}
+		}
+
+		return empleados;
+	}
+
+	@Override
 	public Empleado recuperaPorNif(String nif) {
 		List <Empleado> empleados=null;
 

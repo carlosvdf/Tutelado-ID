@@ -87,7 +87,7 @@ public class P02_Usuarios_Entradas {
 	@After
 	public void tearDown() throws Exception {
 	}	
-	
+	/*
     @Test 
     public void test01_Recuperacion() {
    	
@@ -437,5 +437,5 @@ public class P02_Usuarios_Entradas {
     	Assert.assertTrue(excepcion);
 
     } 	
-
+*/
 }

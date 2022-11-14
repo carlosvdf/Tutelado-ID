@@ -2,6 +2,9 @@ package gei.id.tutelado.dao;
 
 import gei.id.tutelado.configuracion.Configuracion;
 import gei.id.tutelado.model.Empleado;
+import gei.id.tutelado.model.Usuario;
+
+import java.util.List;
 
 public interface EmpleadoDao {
     
@@ -11,5 +14,7 @@ public interface EmpleadoDao {
 	Empleado almacena (Empleado empleado);
 	Empleado modifica (Empleado empleado);
 	void elimina (Empleado empleado);
+
+	List<Empleado> recuperaTodos();
 	Empleado recuperaPorNif (String nif);
 }

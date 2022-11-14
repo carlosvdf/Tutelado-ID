@@ -3,7 +3,7 @@ package gei.id.tutelado.model;
 import javax.persistence.*;
 
 @TableGenerator(name="xeradorIdsEmpleados", table="taboa_ids",
-pkColumnName="nome_id", pkColumnValue="idEmpleados",
+pkColumnName="nome_id", pkColumnValue="idEmpleado",
 valueColumnName="ultimo_valor_id",
 initialValue=0, allocationSize=1)
 

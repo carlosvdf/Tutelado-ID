@@ -1,38 +1,31 @@
 package gei.id.tutelado;
 
-import gei.id.tutelado.configuracion.ConfiguracionJPA;
 import gei.id.tutelado.configuracion.Configuracion;
+import gei.id.tutelado.configuracion.ConfiguracionJPA;
+import gei.id.tutelado.dao.CocineroDao;
+import gei.id.tutelado.dao.CocineroDaoJPA;
 import gei.id.tutelado.dao.UsuarioDao;
 import gei.id.tutelado.dao.UsuarioDaoJPA;
+import gei.id.tutelado.model.Cocinero;
 import gei.id.tutelado.model.Usuario;
-
-//import org.apache.log4j.Logger;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.FixMethodOrder;
-import org.junit.Rule;
-import org.junit.runners.MethodSorters;
-import org.junit.Test;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.junit.*;
 import org.junit.rules.TestRule;
 import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.junit.runners.MethodSorters;
 
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class P01_Usuarios {
+public class R01_Empleados {
 
     private Logger log = LogManager.getLogger("gei.id.tutelado");
 
     private static ProdutorDatosProba produtorDatos = new ProdutorDatosProba();
     
     private static Configuracion cfg;
-    private static UsuarioDao usuDao;
+    private static CocineroDao cociDao;
     
     @Rule
     public TestRule watcher = new TestWatcher() {
@@ -55,8 +48,8 @@ public class P01_Usuarios {
     	cfg = new ConfiguracionJPA();
     	cfg.start();
 
-    	usuDao = new UsuarioDaoJPA();
-    	usuDao.setup(cfg);
+    	cociDao = new CocineroDaoJPA();
+    	cociDao.setup(cfg);
     	
     	produtorDatos = new ProdutorDatosProba();
     	produtorDatos.Setup(cfg);
@@ -77,42 +70,47 @@ public class P01_Usuarios {
 	@After
 	public void tearDown() throws Exception {
 	}
-	/*
-    public void test01_Recuperacion() {
+	
+    @Test
+	public void test01_Recuperacion() {
     	
-    	Usuario u;
+    	Cocinero c;
     	
     	log.info("");	
 		log.info("Configurando situación de partida do test -----------------------------------------------------------------------");
 
-		produtorDatos.creaUsuariosSoltos();
-    	produtorDatos.gravaUsuarios();
+		produtorDatos.creaCocinerosSoltos();
+    	produtorDatos.gravaCocineros();
     	
     	log.info("");	
 		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
-    	log.info("Obxectivo: Proba de recuperación desde a BD de usuario (sen entradas asociadas) por nif\n"   
+    	log.info("Obxectivo: Proba de recuperación desde a BD de cocineros (sen entradas asociadas) por nif\n"
     			+ "\t\t\t\t Casos contemplados:\n"
     			+ "\t\t\t\t a) Recuperación por nif existente\n"
     			+ "\t\t\t\t b) Recuperacion por nif inexistente\n");
 
     	// Situación de partida:
-    	// u0 desligado    	
+    	// c0 desligado
 
     	log.info("Probando recuperacion por nif EXISTENTE --------------------------------------------------");
 
-    	u = usuDao.recuperaPorNif(produtorDatos.u0.getNif());
-    	Assert.assertEquals(produtorDatos.u0.getNif(),      u.getNif());
-    	Assert.assertEquals(produtorDatos.u0.getNome(),     u.getNome());
-    	Assert.assertEquals(produtorDatos.u0.getDataAlta(), u.getDataAlta());
+    	c = (Cocinero) cociDao.recuperaPorNif(produtorDatos.c0.getNif());
+    	Assert.assertEquals(produtorDatos.c0.getNif(),      c.getNif());
+    	Assert.assertEquals(produtorDatos.c0.getNombre(),     c.getNombre());
+    	Assert.assertEquals(produtorDatos.c0.getApellido1(), c.getApellido1());
+		Assert.assertEquals(produtorDatos.c0.getApellido2(), c.getApellido2());
+		Assert.assertEquals(produtorDatos.c0.getTelefono(), c.getTelefono());
 
-    	log.info("");	
+
+
+		log.info("");
 		log.info("Probando recuperacion por nif INEXISTENTE -----------------------------------------------");
     	
-    	u = usuDao.recuperaPorNif("iwbvyhuebvuwebvi");
-    	Assert.assertNull (u);
+    	c = (Cocinero) cociDao.recuperaPorNif("iwbvyhuebvuwebvi");
+    	Assert.assertNull (c);
 
     } 	
-
+/*
     @Test 
     public void test02_Alta() {
 

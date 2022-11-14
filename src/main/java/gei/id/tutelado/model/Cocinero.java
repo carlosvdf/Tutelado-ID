@@ -6,8 +6,12 @@ import java.util.TreeSet;
 
 
 @NamedQueries ({
+        @NamedQuery (name="Cocinero.recuperaTodos",
+                query="SELECT c FROM Cocinero c ORDER BY c.nif"),
 		@NamedQuery (name="Cocinero.recuperaPlatos",
-				query="SELECT p FROM Cocinero c JOIN c.platos p WHERE c=:cocinero"),
+				query="SELECT p FROM Cocinero c JOIN c.platos p WHERE c=:cocinero")/*,
+        @NamedQuery (name="Cocinero.findByIngrediente",
+                query="SELECT c FROM Cocinero c JOIN c.platos p WHERE p.ingrediente=:ingrediente")*/
 
 })
 @Entity
@@ -18,6 +22,10 @@ public class Cocinero extends Empleado{
     private SortedSet<Plato> platos = new TreeSet<Plato>();
 
 
+    public void engadirPlato(Plato plato) {
+        this.platos.add(plato);
+        // É un sorted set, engadimos sempre por orde de data (ascendente)
+    }
 
     @Override
 	public String toString() {
