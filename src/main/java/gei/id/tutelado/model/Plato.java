@@ -10,11 +10,11 @@ valueColumnName="ultimo_valor_id",
 initialValue=0, allocationSize=1)
 
 @NamedQueries ({
-	@NamedQuery (name="Plato.recuperaPorNombre",
+		@NamedQuery (name="Plato.recuperaPorNombre",
 				 query="SELECT p FROM Plato p where p.nombre=:nombre"),
-	@NamedQuery (name="Plato.recuperaTodas",
+		@NamedQuery (name="Plato.recuperaTodas",
 	 			 query="SELECT p FROM Plato p"),
-	@NamedQuery (name="Plato.recuperaTodasTipo",
+		@NamedQuery (name="Plato.recuperaTodasTipo",
 				 query="SELECT p FROM Plato p where p.tipo=:tipo")
 				 //Añadir por ingrediente?
 })

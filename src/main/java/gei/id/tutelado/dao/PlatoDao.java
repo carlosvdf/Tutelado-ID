@@ -1,7 +1,10 @@
 package gei.id.tutelado.dao;
 
 import gei.id.tutelado.configuracion.Configuracion;
+import gei.id.tutelado.model.Cocinero;
 import gei.id.tutelado.model.Plato;
+
+import java.util.List;
 
 public interface PlatoDao {
     
