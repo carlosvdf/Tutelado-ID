@@ -5,7 +5,6 @@ import gei.id.tutelado.model.Cocinero;
 import gei.id.tutelado.model.Empleado;
 import gei.id.tutelado.model.Plato;
 
-import java.util.List;
 
 public interface PlatoDao {
     
@@ -19,4 +18,7 @@ public interface PlatoDao {
 	List<Plato> recuperaTodos();
 	Plato recuperaPorNombre (String nombre);
 
+	// QUERIES ADICIONAIS
+
+	Plato recuperaMediaIngredientes();
 }

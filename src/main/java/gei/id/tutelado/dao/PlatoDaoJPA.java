@@ -135,4 +135,28 @@ public class PlatoDaoJPA implements PlatoDao{
 		return (platos.size()==0?null:platos.get(0));
 	}
 
+	@Override
+	public Plato recuperaMediaIngredientes() {
+		List <Plato> platos=null;
+
+		try {
+			em = emf.createEntityManager();
+			em.getTransaction().begin();
+
+			platos = em.createNamedQuery("Plato.recuperaMediaIngredientes", Plato.class).getResultList();
+
+			em.getTransaction().commit();
+			em.close();
+
+		}
+		catch (Exception ex ) {
+			if (em!=null && em.isOpen()) {
+				if (em.getTransaction().isActive()) em.getTransaction().rollback();
+				em.close();
+				throw(ex);
+			}
+		}
+
+		return (platos.size()==0?null:platos.get(0));
+	}
 }

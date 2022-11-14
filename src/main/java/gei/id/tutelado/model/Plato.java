@@ -12,6 +12,8 @@ initialValue=0, allocationSize=1)
 @NamedQueries ({
 		@NamedQuery (name="Plato.recuperaPorNombre",
 				 query="SELECT p FROM Plato p where p.nombre=:nombre"),
+		@NamedQuery (name="Plato.recuperaMediaIngredientes",
+				 query="SELECT AVG(p.ingredientes) FROM Plato p")
 		@NamedQuery (name="Plato.recuperaTodos",
 	 			 query="SELECT p FROM Plato p"),
 		@NamedQuery (name="Plato.recuperaTodosTipo",
