@@ -4,9 +4,14 @@ import javax.persistence.*;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+@NamedQueries({
+	@NamedQuery(name="Camarero.recuperaMesasJOIN",
+				query="SELECT c FROM Camarero c LEFT OUTER JOIN c.mesas m WHERE m IS NULL")
+})
+
 @Entity
 public class Camarero extends Empleado{
-    @OneToMany (mappedBy="camarero", fetch=FetchType.LAZY, cascade={CascadeType.PERSIST, CascadeType.REMOVE} )
+    @OneToMany (mappedBy="camarero", fetch=FetchType.LAZY, cascade={} )
     @OrderBy("nif ASC")
     private SortedSet<Mesa> mesas = new TreeSet<Mesa>();
 
