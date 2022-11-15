@@ -71,7 +71,7 @@ public class CocineroDaoJPA implements CocineroDao{
             em = emf.createEntityManager();
             em.getTransaction().begin();
 
-            Usuario empleadoTmp = em.find (Usuario.class, empleado.getId());
+            Empleado empleadoTmp = em.find (Empleado.class, empleado.getId());
             em.remove (empleadoTmp);
 
             em.getTransaction().commit();

@@ -4,10 +4,7 @@ import gei.id.tutelado.configuracion.Configuracion;
 import gei.id.tutelado.configuracion.ConfiguracionJPA;
 import gei.id.tutelado.dao.CocineroDao;
 import gei.id.tutelado.dao.CocineroDaoJPA;
-import gei.id.tutelado.dao.UsuarioDao;
-import gei.id.tutelado.dao.UsuarioDaoJPA;
 import gei.id.tutelado.model.Cocinero;
-import gei.id.tutelado.model.Usuario;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.*;
@@ -18,7 +15,7 @@ import org.junit.runners.MethodSorters;
 
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class R01_Empleados {
+public class R01_Cocineros {
 
     private Logger log = LogManager.getLogger("gei.id.tutelado");
 
@@ -110,81 +107,83 @@ public class R01_Empleados {
     	Assert.assertNull (c);
 
     } 	
-/*
+
     @Test 
     public void test02_Alta() {
 
     	log.info("");	
 		log.info("Configurando situación de partida do test -----------------------------------------------------------------------");
   
-		produtorDatos.creaUsuariosSoltos();
+		produtorDatos.creaCocinerosSoltos();
     	
     	log.info("");	
 		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
-    	log.info("Obxectivo: Proba de gravación na BD de novo usuario (sen entradas de log asociadas)\n");
+    	log.info("Obxectivo: Proba de gravación na BD de novo cocinero (sen platos asociadas)\n");
     	
     	// Situación de partida:
-    	// u0 transitorio    	
+    	// c0 transitorio
     	
-    	Assert.assertNull(produtorDatos.u0.getId());
-    	usuDao.almacena(produtorDatos.u0);    	
-    	Assert.assertNotNull(produtorDatos.u0.getId());
+    	Assert.assertNull(produtorDatos.c0.getId());
+    	cociDao.almacena(produtorDatos.c0);
+    	Assert.assertNotNull(produtorDatos.c0.getId());
     }
-    
+
+
     @Test 
     public void test03_Eliminacion() {
     	
     	log.info("");	
 		log.info("Configurando situación de partida do test -----------------------------------------------------------------------");
 
-		produtorDatos.creaUsuariosSoltos();
-    	produtorDatos.gravaUsuarios();
+		produtorDatos.creaCocinerosSoltos();
+    	produtorDatos.gravaCocineros();
 
     	
     	log.info("");	
 		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
-    	log.info("Obxectivo: Proba de eliminación da BD de usuario sen entradas asociadas\n");   
+    	log.info("Obxectivo: Proba de eliminación da BD de cocinero sen platos asociadas\n");
  
     	// Situación de partida:
-    	// u0 desligado  
+    	// c0 desligado
 
-    	Assert.assertNotNull(usuDao.recuperaPorNif(produtorDatos.u0.getNif()));
-    	usuDao.elimina(produtorDatos.u0);    	
-    	Assert.assertNull(usuDao.recuperaPorNif(produtorDatos.u0.getNif()));
+    	Assert.assertNotNull(cociDao.recuperaPorNif(produtorDatos.c0.getNif()));
+    	cociDao.elimina(produtorDatos.c0);
+    	Assert.assertNull(cociDao.recuperaPorNif(produtorDatos.c0.getNif()));
     } 	
+
 
     @Test 
     public void test04_Modificacion() {
     	
-    	Usuario u1, u2;
+    	Cocinero c1, c2;
     	String novoNome;
     	
     	log.info("");	
 		log.info("Configurando situación de partida do test -----------------------------------------------------------------------");
 
-		produtorDatos.creaUsuariosSoltos();
-    	produtorDatos.gravaUsuarios();
+		produtorDatos.creaCocinerosSoltos();
+    	produtorDatos.gravaCocineros();
 
     	log.info("");	
 		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
-    	log.info("Obxectivo: Proba de modificación da información básica dun usuario sen entradas de log\n");
+    	log.info("Obxectivo: Proba de modificación da información básica dun cocinero sen platos\n");
 
     	// Situación de partida:
-    	// u0 desligado  
+    	// c0 desligado
 
 		novoNome = new String ("Nome novo");
 
-		u1 = usuDao.recuperaPorNif(produtorDatos.u0.getNif());
-		Assert.assertNotEquals(novoNome, u1.getNome());
-    	u1.setNome(novoNome);
+		c1 = (Cocinero) cociDao.recuperaPorNif(produtorDatos.c0.getNif());
+		Assert.assertNotEquals(novoNome, c1.getNombre());
+    	c1.setNombre(novoNome);
 
-    	usuDao.modifica(u1);    	
+    	cociDao.modifica(c1);
     	
-		u2 = usuDao.recuperaPorNif(produtorDatos.u0.getNif());
-		Assert.assertEquals (novoNome, u2.getNome());
+		c2 = (Cocinero) cociDao.recuperaPorNif(produtorDatos.c0.getNif());
+		Assert.assertEquals (novoNome, c2.getNombre());
 
     } 	
-    
+
     @Test
     public void test09_Excepcions() {
     	
@@ -193,23 +192,23 @@ public class R01_Empleados {
     	log.info("");	
 		log.info("Configurando situación de partida do test -----------------------------------------------------------------------");
 
-		produtorDatos.creaUsuariosSoltos();
-    	usuDao.almacena(produtorDatos.u0);
+		produtorDatos.creaCocinerosSoltos();
+    	cociDao.almacena(produtorDatos.c0);
     	
     	log.info("");	
 		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
     	log.info("Obxectivo: Proba de violación de restricións not null e unique\n"   
     			+ "\t\t\t\t Casos contemplados:\n"
-    			+ "\t\t\t\t a) Gravación de usuario con nif duplicado\n"
-    			+ "\t\t\t\t b) Gravación de usuario con nif nulo\n");
+    			+ "\t\t\t\t a) Gravación de cocinero con nif duplicado\n"
+    			+ "\t\t\t\t b) Gravación de cocinero con nif nulo\n");
 
     	// Situación de partida:
-    	// u0 desligado, u1 transitorio
+    	// c0 desligado, c1 transitorio
     	
-		log.info("Probando gravacion de usuario con Nif duplicado -----------------------------------------------");
-    	produtorDatos.u1.setNif(produtorDatos.u0.getNif());
+		log.info("Probando gravacion de cocinero con Nif duplicado -----------------------------------------------");
+    	produtorDatos.c1.setNif(produtorDatos.c0.getNif());
     	try {
-        	usuDao.almacena(produtorDatos.u1);
+        	cociDao.almacena(produtorDatos.c1);
         	excepcion=false;
     	} catch (Exception ex) {
     		excepcion=true;
@@ -219,10 +218,10 @@ public class R01_Empleados {
     	
     	// Nif nulo
     	log.info("");	
-		log.info("Probando gravacion de usuario con Nif nulo ----------------------------------------------------");
-    	produtorDatos.u1.setNif(null);
+		log.info("Probando gravacion de cocinero con Nif nulo ----------------------------------------------------");
+    	produtorDatos.c1.setNif(null);
     	try {
-        	usuDao.almacena(produtorDatos.u1);
+        	cociDao.almacena(produtorDatos.c1);
         	excepcion=false;
     	} catch (Exception ex) {
     		excepcion=true;
@@ -230,5 +229,5 @@ public class R01_Empleados {
     	}
     	Assert.assertTrue(excepcion);
     } 	
-    */
+
 }
