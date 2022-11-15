@@ -16,7 +16,7 @@ public class ProdutorDatos {
 	
 	private EntityManagerFactory emf=null;
 	
-	public Mesa m0, m1;
+	public Mesa m1, m2;
 	public List<Mesa> listaxeM;
 
     public Camarero cam0, cam1;
@@ -32,28 +32,28 @@ public class ProdutorDatos {
 		this.emf=(EntityManagerFactory) config.get("EMF");
 	}
 
-    public void creaMesasSueltas() {
+    public void creaMesasSoltas() {
 
 		// Crea dous mesas EN MEMORIA: m0, m1
 		// SEN camarero
 		
-		this.m0 = new Mesa();
-        this.m0.setCodigo("T000");
-        this.m0.setTipo("Terraza");
+		this.m1 = new Mesa();
+        this.m1.setCodigo("T000");
+        this.m1.setTipo("Terraza");
 
-        this.m1 = new Mesa();
-        this.m1.setCodigo("C000");
-        this.m1.setTipo("Comedor");
+        this.m2 = new Mesa();
+        this.m2.setCodigo("C000");
+        this.m2.setTipo("Comedor");
 
         this.listaxeM = new ArrayList<Mesa> ();
-        this.listaxeM.add(0,m0);
-        this.listaxeM.add(1,m1);        
+        this.listaxeM.add(0,m1);
+        this.listaxeM.add(1,m2);        
 
 	}
 
-    public void creaCamarerosSueltos() {
+    public void creaCamarerosSoltos() {
 
-		// Crea dous camareros EN MEMORIA: c0, c1
+		// Crea dous camareros EN MEMORIA: cam0, cam1
 		// SEN mesas
 		
 		this.cam0 = new Camarero();
@@ -65,10 +65,10 @@ public class ProdutorDatos {
 
         this.cam1 = new Camarero();
         this.cam1.setNif("9880C");
-        this.cam0.setNombre("Leticia");
-        this.cam0.setApellido1("Sabater");
-        this.cam0.setApellido2("Molina");
-        this.cam0.setTelefono("722419300");
+        this.cam1.setNombre("Leticia");
+        this.cam1.setApellido1("Sabater");
+        this.cam1.setApellido2("Molina");
+        this.cam1.setTelefono("722419300");
 
         this.listaxeCam = new ArrayList<Camarero> ();
         this.listaxeCam.add(0,cam0);
@@ -78,11 +78,11 @@ public class ProdutorDatos {
 
     public void creaCamarerosConMesas () {
 
-		this.creaCamarerosSueltos();
-		this.creaMesasSueltas();
+		this.creaCamarerosSoltos();
+		this.creaMesasSoltas();
 		
-        this.cam1.engadirMesa(this.m0);
         this.cam1.engadirMesa(this.m1);
+        this.cam1.engadirMesa(this.m2);
 
 	}
 

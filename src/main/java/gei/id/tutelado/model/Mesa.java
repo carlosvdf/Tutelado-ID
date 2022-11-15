@@ -9,7 +9,7 @@ initialValue=0, allocationSize=1)
 
 @NamedQueries ({
 	@NamedQuery (name="Mesa.recuperaPorCodigo",
-				 query="SELECT m FROM Mesa m where m.codigo=:codigo"),
+				 query="SELECT m FROM Mesa m WHERE m.codigo=:codigo"),
 	@NamedQuery (name="Mesa.recuperaTodasCamarero",
 	 			 query="SELECT m FROM Mesa m JOIN m.camarero c WHERE c=:c"),
 	@NamedQuery (name="Mesa.recuperaTodas",

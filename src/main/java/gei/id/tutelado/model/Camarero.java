@@ -1,8 +1,8 @@
 package gei.id.tutelado.model;
 
 import javax.persistence.*;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.List;
+import java.util.ArrayList;
 
 @NamedQueries({
 	@NamedQuery(name="Camarero.recuperaMesasJOIN",
@@ -12,14 +12,14 @@ import java.util.TreeSet;
 @Entity
 public class Camarero extends Empleado{
     @OneToMany (mappedBy="camarero", fetch=FetchType.LAZY, cascade={} )
-    @OrderBy("nif ASC")
-    private SortedSet<Mesa> mesas = new TreeSet<Mesa>();
+    @OrderBy("codigo ASC")
+    private List<Mesa> mesas = new ArrayList<Mesa>();
 
-    public SortedSet<Mesa> getMesas() {
+    public List<Mesa> getMesas() {
 		return mesas;
 	}
 
-    public void setMesas(SortedSet<Mesa> mesas) {
+    public void setMesas(List<Mesa> mesas) {
 		this.mesas = mesas;
 	}
 
