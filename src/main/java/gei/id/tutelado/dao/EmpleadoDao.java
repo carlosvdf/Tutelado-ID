@@ -2,7 +2,6 @@ package gei.id.tutelado.dao;
 
 import gei.id.tutelado.configuracion.Configuracion;
 import gei.id.tutelado.model.Empleado;
-import gei.id.tutelado.model.Usuario;
 
 import java.util.List;
 

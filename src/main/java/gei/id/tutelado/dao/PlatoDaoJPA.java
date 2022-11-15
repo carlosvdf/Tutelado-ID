@@ -6,8 +6,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 import gei.id.tutelado.configuracion.Configuracion;
-import gei.id.tutelado.model.Cocinero;
-import gei.id.tutelado.model.Empleado;
 import gei.id.tutelado.model.Plato;
 
 public class PlatoDaoJPA implements PlatoDao{
