@@ -218,11 +218,9 @@ public class R02_Camareros_Mesas {
     	// NOTA: Non probamos modificación de usuario da entrada porque non ten sentido no dominio considerado
         // Hay que probar la modificación de camarero 
     }
-    /* 
     @Test 
-    public void test08_LAZY() {
+    public void test07_EAGER() {
     	
-    	Camarero cam;
     	Mesa m;
     	Boolean excepcion;
     	
@@ -233,44 +231,22 @@ public class R02_Camareros_Mesas {
     	produtorDatos.gravaCamareros();
 
 		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
-    	log.info("Obxectivo: Proba da recuperación de propiedades LAZY\n"   
-		+ "\t\t\t\t Casos contemplados:\n"
-		+ "\t\t\t\t a) Recuperación de camarero con colección (LAZY) de mesas \n"
-		+ "\t\t\t\t b) Carga forzada de colección LAZY da dita coleccion\n"     	
-		+ "\t\t\t\t c) Recuperacion de entrada de log solta con referencia (EAGER) a usuario\n");     	
+    	log.info("Obxectivo: Proba da recuperación de propiedades EAGER\n");   
 
     	// Situación de partida:
-    	// cam1, m0, m1 desligados
+    	// cam1, m1, m2 desligados
     	
-		log.info("Probando (excepcion tras) recuperacion LAZY ---------------------------------------------------------------------");
+		log.info("Probando (que non hai excepcion tras) acceso inicial a propiedade EAGER fora de sesion ----------------------------------------");
     	
-    	cam = camDao.recuperaPorNif(produtorDatos.cam0.getNif());
-		log.info("Acceso a entradas de log de usuario");
+    	m = mesaDao.recuperaPorCodigo(produtorDatos.m1.getCodigo());  
+		log.info("Acceso a camarero de mesa");
     	try	{
-        	Assert.assertEquals(2, u.getEntradasLog().size());
-        	Assert.assertEquals(produtorDatos.e1A, u.getEntradasLog().first());
-        	Assert.assertEquals(produtorDatos.e1B, u.getEntradasLog().last());	
+        	Assert.assertEquals(produtorDatos.cam1, m.getCamarero());
         	excepcion=false;
     	} catch (LazyInitializationException ex) {
     		excepcion=true;
     		log.info(ex.getClass().getName());
     	};    	
-    	Assert.assertTrue(excepcion);
-    
-    	log.info("");
-    	log.info("Probando carga forzada de coleccion LAZY ------------------------------------------------------------------------");
-    	
-    	u = usuDao.recuperaPorNif(produtorDatos.u1.getNif());   // Usuario u con proxy sen inicializar
-    	u = usuDao.restauraEntradasLog(u);						// Usuario u con proxy xa inicializado
-    	
-    	Assert.assertEquals(2, u.getEntradasLog().size());
-    	Assert.assertEquals(produtorDatos.e1A, u.getEntradasLog().first());
-    	Assert.assertEquals(produtorDatos.e1B, u.getEntradasLog().last());
-
-    	log.info("");
-    	log.info("Probando acceso a referencia EAGER ------------------------------------------------------------------------------");
-    
-    	e = logDao.recuperaPorCodigo(produtorDatos.e1A.getCodigo());
-    	Assert.assertEquals(produtorDatos.u1, e.getUsuario());
-    }*/
+    	Assert.assertFalse(excepcion);    
+    }
 }

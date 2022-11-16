@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 @Entity
 public class Camarero extends Empleado{
-    @OneToMany (mappedBy="camarero", fetch=FetchType.LAZY, cascade={} )
+    @OneToMany (mappedBy="camarero", fetch=FetchType.EAGER, cascade={} )
     @OrderBy("codigo ASC")
     private List<Mesa> mesas = new ArrayList<Mesa>();
 

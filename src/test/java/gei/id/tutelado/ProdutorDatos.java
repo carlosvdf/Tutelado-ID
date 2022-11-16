@@ -215,10 +215,10 @@ public class ProdutorDatos {
 			em = emf.createEntityManager();
 			em.getTransaction().begin();
 			
-			Iterator <Empleado> itE = em.createNamedQuery("Empleado.recuperaTodos", Empleado.class).getResultList().iterator();
-			while (itE.hasNext()) em.remove(itE.next());
 			Iterator <Mesa> itM = em.createNamedQuery("Mesa.recuperaTodas", Mesa.class).getResultList().iterator();
 			while (itM.hasNext()) em.remove(itM.next());
+			Iterator <Empleado> itE = em.createNamedQuery("Empleado.recuperaTodos", Empleado.class).getResultList().iterator();
+			while (itE.hasNext()) em.remove(itE.next());
 			Iterator <Plato> itP = em.createNamedQuery("Plato.recuperaTodos", Plato.class).getResultList().iterator();
 			while (itP.hasNext()) em.remove(itP.next());		
 
