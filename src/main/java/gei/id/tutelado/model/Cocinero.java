@@ -17,14 +17,14 @@ import java.util.TreeSet;
 @Entity
 public class Cocinero extends Empleado{
     @ManyToMany (cascade={CascadeType.PERSIST, CascadeType.REMOVE}, fetch=FetchType.LAZY)
-    @OrderBy("nombre ASC")
     @JoinColumn (nullable=false, unique=false)
+    @OrderBy("nombre ASC")
     private SortedSet<Plato> platos = new TreeSet<Plato>();
 
 
     public void engadirPlato(Plato plato) {
         this.platos.add(plato);
-        // É un sorted set, engadimos sempre por orde de data (ascendente)
+        // É un sorted set, engadimos sempre por orde de nome (ascendente)
     }
 
     @Override

@@ -70,6 +70,7 @@ public class ProdutorDatosProba {
 		
 		this.p1=new Plato();
 		this.p1.setNombre("Macarrones con queso");
+		this.p1.setTipo("Entrante");
 		List<String> ingredientes1 = new ArrayList<>();
 		ingredientes1.add(0, "Macarrones");
 		ingredientes1.add(1, "Tomate frito");
@@ -78,10 +79,11 @@ public class ProdutorDatosProba {
 
 		this.p2=new Plato();
 		this.p2.setNombre("Huevos rotos con jamon");
+		this.p2.setTipo("Entrante");
 		List<String> ingredientes2 = new ArrayList<>();
-		ingredientes1.add(1, "Huevos");
-		ingredientes1.add(2, "Patatas");
-		ingredientes1.add(3, "Jamon");
+		ingredientes2.add(0, "Huevos");
+		ingredientes2.add(1, "Patatas");
+		ingredientes2.add(2, "Jamon");
 		this.p2.setIngredientes(ingredientes2);
 
         this.listaxeP = new ArrayList<Plato> ();

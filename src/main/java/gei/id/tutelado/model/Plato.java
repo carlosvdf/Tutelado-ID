@@ -3,6 +3,7 @@ package gei.id.tutelado.model;
 import javax.persistence.*;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Objects;
 
 @TableGenerator(name="xeradorIdsPlatos", table="taboa_ids",
 pkColumnName="nome_id", pkColumnValue="idPlato",
@@ -22,7 +23,7 @@ initialValue=0, allocationSize=1)
 })
 
 @Entity
-public class Plato {
+public class Plato implements Comparable<Plato> {
     @Id
     @GeneratedValue(generator="xeradorIdsPlatos")
     private Long id;
@@ -33,8 +34,8 @@ public class Plato {
     @Column(unique=false, nullable = false)
     private String tipo;
 
-    @Column(unique=false, nullable = false)
-	@ElementCollection
+    @Column(unique=false, nullable = true)
+	@ElementCollection(fetch=FetchType.EAGER)
     private List<String> ingredientes = new ArrayList<String>();
 
     public Long getId() {
@@ -50,7 +51,7 @@ public class Plato {
 	}
 
     public List<String> getIngredientes() {
-        return ingredientes;
+        return this.ingredientes;
     }
 
     public void setId(Long id) {
@@ -69,33 +70,36 @@ public class Plato {
         this.ingredientes = ingredientes;
     }
 
-    @Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((nombre == null) ? 0 : nombre.hashCode());
-		return result;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Plato)) return false;
+		Plato plato = (Plato) o;
+		return id.equals(plato.id) && nombre.equals(plato.nombre) && tipo.equals(plato.tipo) && Objects.equals(ingredientes, plato.ingredientes);
 	}
 
 	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Plato other = (Plato) obj;
-		if (nombre == null) {
-			if (other.nombre != null)
-				return false;
-		} else if (!nombre.equals(other.nombre))
-			return false;
-		return true;
+	public int hashCode() {
+		return Objects.hash(id, nombre, tipo, ingredientes);
 	}
 
 	@Override
 	public String toString() {
-		return "Plato [id=" + id + ", nombre=" + nombre + ", tipo=" + tipo + "]";
-	}    
+		return "Plato{" +
+				"id=" + id +
+				", nombre='" + nombre + '\'' +
+				", tipo='" + tipo + '\'' +
+				", ingredientes=" + ingredientes +
+				'}';
+	}
+
+	@Override
+	public int compareTo(Plato other) {
+		if(this.nombre.compareToIgnoreCase(other.getNombre()) == 1){
+			return 1;
+		}
+		else{
+			return -1;
+		}
+	}
 }
