@@ -6,13 +6,12 @@ import java.util.ArrayList;
 
 @NamedQueries({
 	@NamedQuery(name="Camarero.recuperaMesasJOIN",
-				query="SELECT c FROM Camarero c LEFT OUTER JOIN c.mesas m WHERE m IS NULL")
+				query="SELECT DISTINCT c FROM Camarero c LEFT OUTER JOIN c.mesas m")
 })
 
 @Entity
 public class Camarero extends Empleado{
     @OneToMany (mappedBy="camarero", fetch=FetchType.EAGER, cascade={} )
-    @OrderBy("codigo ASC")
     private List<Mesa> mesas = new ArrayList<Mesa>();
 
     public List<Mesa> getMesas() {
@@ -33,6 +32,6 @@ public class Camarero extends Empleado{
 
     @Override
 	public String toString() {
-		return "Camarero [id=" + getId() + ", nif=" + getNif() + ", nombre=" + getNombre() + ", apellido1=" + getApellido1() + ", apellido2=" + getApellido2() +", telefono=" + getTelefono() + "]";
+		return "Camarero [id=" + getId() + ", nif=" + getNif() + ", nombre=" + getNombre() + ", apellido1=" + getApellido1() + ", apellido2=" + getApellido2() +", telefono=" + getTelefono() + ", mesas=" + getMesas() + "]";
 	}
 }

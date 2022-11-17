@@ -8,7 +8,6 @@ import javax.persistence.EntityManagerFactory;
 import gei.id.tutelado.configuracion.Configuracion;
 import gei.id.tutelado.model.Camarero;
 import gei.id.tutelado.model.Empleado;
-import gei.id.tutelado.model.Mesa;
 
 public class CamareroDaoJPA implements CamareroDao{
     
@@ -117,14 +116,14 @@ public class CamareroDaoJPA implements CamareroDao{
     }
 
     @Override
-	public List<Mesa> recuperaMesasCamarero(Camarero c) {
-		List <Mesa> mesas=null;
+	public List<Camarero> recuperaMesasJOIN() {
+		List <Camarero> camareros=null;
 
 		try {
 			em = emf.createEntityManager();
 			em.getTransaction().begin();
 
-			mesas = em.createNamedQuery("Camarero.recuperaMesasJOIN", Mesa.class).setParameter("c", c).getResultList(); 
+			camareros = em.createNamedQuery("Camarero.recuperaMesasJOIN", Camarero.class).getResultList(); 
 
 			em.getTransaction().commit();
 			em.close();	
@@ -138,6 +137,6 @@ public class CamareroDaoJPA implements CamareroDao{
 			}
 		}
 
-		return mesas;
+		return camareros;
 	}
 }

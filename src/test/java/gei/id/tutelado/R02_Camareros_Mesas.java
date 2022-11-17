@@ -7,7 +7,6 @@ import gei.id.tutelado.dao.MesaDaoJPA;
 import gei.id.tutelado.dao.CamareroDao;
 import gei.id.tutelado.dao.CamareroDaoJPA;
 import gei.id.tutelado.model.Mesa;
-import gei.id.tutelado.model.Camarero;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -248,5 +247,55 @@ public class R02_Camareros_Mesas {
     		log.info(ex.getClass().getName());
     	};    	
     	Assert.assertFalse(excepcion);    
+    }
+
+	@Test
+    public void test09_Excepcions() {
+    	
+    	Boolean excepcion;
+    	
+    	log.info("");	
+		log.info("Configurando situación de partida do test -----------------------------------------------------------------------");
+
+		produtorDatos.creaCamarerosSoltos();
+		produtorDatos.gravaCamareros();
+		produtorDatos.creaMesasSoltas();		
+		produtorDatos.cam0.engadirMesa(produtorDatos.m1);		
+		mesaDao.almacena(produtorDatos.m1);
+		
+    	log.info("");	
+		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
+    	log.info("Obxectivo: Proba de violacion de restricions not null e unique\n"   
+    			+ "\t\t\t\t Casos contemplados:\n"
+    			+ "\t\t\t\t b) Gravación de entrada con codigo nulo\n"
+    			+ "\t\t\t\t c) Gravación de entrada con codigo duplicado\n");
+
+    	// Situación de partida:
+    	// m1 desligado, m2 transitorio 
+    	    	
+    	log.info("");	
+		log.info("Probando gravacion de entrada con codigo nulo -------------------------------------------------------------------");
+		produtorDatos.m2.setCodigo(null);
+    	try {
+        	mesaDao.almacena(produtorDatos.m2);
+        	excepcion=false;
+    	} catch (Exception ex) {
+    		excepcion=true;
+    		log.info(ex.getClass().getName());
+    	}
+    	Assert.assertTrue(excepcion);
+
+    	log.info("");	
+		log.info("Probando gravacion de entrada con codigo duplicado --------------------------------------------------------------");
+		produtorDatos.m2.setCodigo(produtorDatos.m1.getCodigo());
+    	try {
+        	mesaDao.almacena(produtorDatos.m2);
+        	excepcion=false;
+    	} catch (Exception ex) {
+    		excepcion=true;
+    		log.info(ex.getClass().getName());
+    	}
+    	Assert.assertTrue(excepcion);
+
     }
 }
