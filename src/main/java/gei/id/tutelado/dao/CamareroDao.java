@@ -6,7 +6,7 @@ import gei.id.tutelado.configuracion.Configuracion;
 import gei.id.tutelado.model.Camarero;
 import gei.id.tutelado.model.Mesa;
 
-public interface CamareroDao {
+public interface CamareroDao extends EmpleadoDao{
     
     void setup (Configuracion config);
 
