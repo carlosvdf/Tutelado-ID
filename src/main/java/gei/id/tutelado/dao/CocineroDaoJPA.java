@@ -123,7 +123,7 @@ public class CocineroDaoJPA implements CocineroDao{
             em = emf.createEntityManager();
             em.getTransaction().begin();
 
-            platos = em.createNamedQuery("Cocinero.recuperaPlatos", Plato.class).setParameter("c", cocinero).getResultList();
+            platos = em.createNamedQuery("Cocinero.recuperaPlatos", Plato.class).setParameter("cocinero", cocinero).getResultList();
 
             em.getTransaction().commit();
             em.close();
