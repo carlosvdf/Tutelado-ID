@@ -5,6 +5,9 @@ import gei.id.tutelado.configuracion.ConfiguracionJPA;
 import gei.id.tutelado.dao.CocineroDao;
 import gei.id.tutelado.dao.CocineroDaoJPA;
 import gei.id.tutelado.model.Cocinero;
+
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.*;
@@ -183,6 +186,33 @@ public class R01_Cocineros {
 		Assert.assertEquals (novoNome, c2.getNombre());
 
     } 	
+
+	@Test 
+    public void test06_CocineroIngrediente() {
+
+    	List<Cocinero> listaC;   
+		String ingrediente = "Huevos"; 	
+
+    	log.info("");	
+		log.info("Configurando situación de partida do test -----------------------------------------------------------------------");
+
+		produtorDatos.creaCocinerosConPlatos();
+    	produtorDatos.gravaCocineros();
+
+    	log.info("");	
+		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
+    	log.info("Obxectivo: Proba da consulta Cocinero.findByIngrediente\n");   
+
+    	// Situación de partida:
+    	// u1, e1A, e1B desligados
+
+		listaC = cociDao.findByIngrediente(ingrediente);
+		
+		System.out.println(listaC);
+		
+		Assert.assertEquals(1, listaC.size());
+
+    }
 
     @Test
     public void test09_Excepcions() {

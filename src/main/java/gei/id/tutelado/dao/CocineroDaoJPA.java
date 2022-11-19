@@ -4,7 +4,6 @@ import gei.id.tutelado.configuracion.Configuracion;
 import gei.id.tutelado.model.Cocinero;
 import gei.id.tutelado.model.Empleado;
 import gei.id.tutelado.model.Plato;
-import gei.id.tutelado.model.Usuario;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -142,14 +141,14 @@ public class CocineroDaoJPA implements CocineroDao{
     }
 
     @Override
-    public List<String> findByIngrediente(String ingrediente) {
-        List<String> ingredientes=null;
+    public List<Cocinero> findByIngrediente(String ingrediente) {
+        List<Cocinero> cocineros=null;
 
         try {
             em = emf.createEntityManager();
             em.getTransaction().begin();
 
-            ingredientes = em.createNamedQuery("Cocinero.findByIngrediente", String.class).setParameter("i", ingrediente).getResultList();
+            cocineros = em.createNamedQuery("Cocinero.findByIngrediente", Cocinero.class).setParameter("ingrediente", ingrediente).getResultList();
 
             em.getTransaction().commit();
             em.close();
@@ -163,7 +162,7 @@ public class CocineroDaoJPA implements CocineroDao{
             }
         }
 
-        return (ingredientes);
+        return cocineros;
     }
 
 }

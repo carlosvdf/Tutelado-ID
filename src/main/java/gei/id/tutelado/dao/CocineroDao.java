@@ -9,5 +9,5 @@ public interface CocineroDao extends EmpleadoDao {
 
     List<Plato> recuperaPlatos(Cocinero cocinero);
 
-    List<String> findByIngrediente (String ingrediente);
+    List<Cocinero> findByIngrediente (String ingrediente);
 }
