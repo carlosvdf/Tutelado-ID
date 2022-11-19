@@ -209,7 +209,6 @@ public class R01_Cocineros {
 		listaC = cociDao.findByIngrediente(ingrediente);
 		
 		System.out.println(listaC);
-		
 		Assert.assertEquals(1, listaC.size());
 
     }

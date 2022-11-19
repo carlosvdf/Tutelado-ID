@@ -4,6 +4,9 @@ import gei.id.tutelado.configuracion.Configuracion;
 import gei.id.tutelado.configuracion.ConfiguracionJPA;
 import gei.id.tutelado.dao.*;
 import gei.id.tutelado.model.Plato;
+
+import java.util.List;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.*;
@@ -296,6 +299,34 @@ public class R03_Cocineros_Platos {
 		media = platoDao.recuperaMediaIngredientes();
 		
 		Assert.assertEquals((Double)3.0, media);
+    }
+
+	@Test 
+    public void test06_platosCocinero() {
+
+    	List<Plato> listaP;
+    	
+    	log.info("");	
+		log.info("Configurando situación de partida do test -----------------------------------------------------------------------");
+
+		produtorDatos.creaCocinerosConPlatos();
+    	produtorDatos.gravaCocineros();
+
+    	log.info("");	
+		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
+    	log.info("Obxectivo: Proba da consulta Cocinero.recuperaPlatos\n");   
+
+    	// Situación de partida:
+    	// u1, e1A, e1B desligados
+
+		listaP = cociDao.recuperaPlatos(produtorDatos.c0);
+		Assert.assertEquals(0, listaP.size());
+		
+		listaP = cociDao.recuperaPlatos(produtorDatos.c1);
+		Assert.assertEquals(2, listaP.size());
+		Assert.assertEquals(produtorDatos.p1.getNombre(), listaP.get(1).getNombre());
+		Assert.assertEquals(produtorDatos.p2.getNombre(), listaP.get(0).getNombre());
+
     }
 
     /*
