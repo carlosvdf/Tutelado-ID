@@ -156,65 +156,63 @@ public class R03_Cocineros_Platos {
     	Assert.assertNotNull(produtorDatos.p2.getId());
 
     }
-/*
+
     @Test 
     public void test03_Eliminacion() {
     	
     	log.info("");	
 		log.info("Configurando situación de partida do test -----------------------------------------------------------------------");
 
-    	produtorDatos.creaCocinerosConPlatos();
-    	produtorDatos.gravaCocineros();
+		produtorDatos.creaPlatosSoltos();
+		produtorDatos.gravaPlatos();
 
     	log.info("");	
 		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
-    	log.info("Obxectivo: Proba de eliminación de plato solto (asignado a cocinero)\n");
+    	log.info("Obxectivo: Proba de eliminación de plato solto\n");
     	
-    	// Situación de partida:
-    	// p1 desligado
 
-		Assert.assertNotNull(platoDao.recuperaPorNombre(produtorDatos.p1.getNombre()));
-    	platoDao.elimina(produtorDatos.p1);
-		Assert.assertNull(platoDao.recuperaPorNombre(produtorDatos.p1.getNombre()));
+
+		Assert.assertNotNull(platoDao.recuperaPorNombre(produtorDatos.p2.getNombre()));
+    	platoDao.elimina(produtorDatos.p2);
+		Assert.assertNull(platoDao.recuperaPorNombre(produtorDatos.p2.getNombre()));
 
     } 	
 
     @Test 
     public void test04_Modificacion() {
 
-    	EntradaLog e1, e2;
-    	String novaDescricion;
+    	Plato p1, p2;
+    	String novoTipo;
     	
     	log.info("");	
 		log.info("Configurando situación de partida do test -----------------------------------------------------------------------");
   
-		produtorDatos.creaUsuariosConEntradasLog();
-    	produtorDatos.gravaUsuarios();
+		produtorDatos.creaCocinerosConPlatos();
+    	produtorDatos.gravaCocineros();
 
     	log.info("");	
 		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
-    	log.info("Obxectivo: Proba de modificación da información dunha entrada de log solta\n");
+    	log.info("Obxectivo: Proba de modificación da información dun plato solto\n");
  
     	
     	// Situación de partida:
-    	// e1A desligado
+    	// p1 desligado
     	
-		novaDescricion = new String ("Descricion nova");
+		novoTipo = new String ("Segundo");
 
-		e1 = logDao.recuperaPorCodigo(produtorDatos.e1A.getCodigo());
+		p1 = platoDao.recuperaPorNombre(produtorDatos.p1.getNombre());
 
-		Assert.assertNotEquals(novaDescricion, e1.getDescricion());
-    	e1.setDescricion(novaDescricion);
+		Assert.assertNotEquals(novoTipo, p1.getTipo());
+    	p1.setTipo(novoTipo);
 
-    	logDao.modifica(e1);    	
+    	platoDao.modifica(p1);
     	
-		e2 = logDao.recuperaPorCodigo(produtorDatos.e1A.getCodigo());
-		Assert.assertEquals (novaDescricion, e2.getDescricion());
+		p2 = platoDao.recuperaPorNombre(produtorDatos.p1.getNombre());
+		Assert.assertEquals (novoTipo, p2.getTipo());
 
-    	// NOTA: Non probamos modificación de usuario da entrada porque non ten sentido no dominio considerado
 
     } 	
-    
+/*
     @Test 
     public void test05_Propagacion_Persist() {
 
@@ -222,33 +220,33 @@ public class R03_Cocineros_Platos {
     	log.info("");	
 		log.info("Configurando situación de partida do test -----------------------------------------------------------------------");
 
-		produtorDatos.creaUsuariosSoltos();
-    	produtorDatos.creaEntradasLogSoltas();
-    	produtorDatos.u1.engadirEntradaLog(produtorDatos.e1A);
-    	produtorDatos.u1.engadirEntradaLog(produtorDatos.e1B);
+		produtorDatos.creaPlatosSoltos();
+    	produtorDatos.creaPlatosSoltos();
+    	produtorDatos.c1.engadirPlato(produtorDatos.p1);
+    	produtorDatos.c1.engadirPlato(produtorDatos.p2);
 
 
     	log.info("");	
 		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
-    	log.info("Obxectivo: Proba da gravación de novo usuario con entradas (novas) de log asociadas\n");   
+    	log.info("Obxectivo: Proba da gravación de novo cocinero con platos (novos) asociados\n");
 
     	// Situación de partida:
     	// u1, e1A, e1B transitorios
 
-    	Assert.assertNull(produtorDatos.u1.getId());
-    	Assert.assertNull(produtorDatos.e1A.getId());
-    	Assert.assertNull(produtorDatos.e1B.getId());
+    	Assert.assertNull(produtorDatos.c1.getId());
+    	Assert.assertNull(produtorDatos.p1.getId());
+    	Assert.assertNull(produtorDatos.p2.getId());
     	
 		log.info("Gravando na BD usuario con entradas de log ----------------------------------------------------------------------");
 
     	// Aqui o persist sobre u1 debe propagarse a e1A e e1B
-		usuDao.almacena(produtorDatos.u1);
+		cociDao.almacena(produtorDatos.c1);
 
-		Assert.assertNotNull(produtorDatos.u1.getId());
-    	Assert.assertNotNull(produtorDatos.e1A.getId());
-    	Assert.assertNotNull(produtorDatos.e1B.getId());    	
+		Assert.assertNotNull(produtorDatos.c1.getId());
+    	Assert.assertNotNull(produtorDatos.p1.getId());
+    	Assert.assertNotNull(produtorDatos.p2.getId());
     }
-
+/*
     @Test 
     public void test05_Propagacion_Remove() {
     	

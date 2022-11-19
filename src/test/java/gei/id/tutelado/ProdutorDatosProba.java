@@ -91,6 +91,28 @@ public class ProdutorDatosProba {
         this.listaxeP.add(1,this.p2);
 
 	}
+
+	public void gravaPlatos() {
+		EntityManager em=null;
+		try {
+			em = emf.createEntityManager();
+			em.getTransaction().begin();
+
+			Iterator<Plato> itP = this.listaxeP.iterator();
+			while (itP.hasNext()) {
+				Plato p = itP.next();
+				em.persist(p);
+			}
+			em.getTransaction().commit();
+			em.close();
+		} catch (Exception e) {
+			if (em!=null && em.isOpen()) {
+				if (em.getTransaction().isActive()) em.getTransaction().rollback();
+				em.close();
+				throw (e);
+			}
+		}
+	}
 	
 	public void creaCocinerosConPlatos () {
 
