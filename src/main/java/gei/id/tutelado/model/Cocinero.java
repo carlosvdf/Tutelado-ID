@@ -9,10 +9,9 @@ import java.util.TreeSet;
         @NamedQuery (name="Cocinero.recuperaTodos",
                 query="SELECT c FROM Cocinero c ORDER BY c.nif"),
 		@NamedQuery (name="Cocinero.recuperaPlatos",
-				query="SELECT p FROM Cocinero c JOIN c.platos p WHERE c=:cocinero")/*,
+				query="SELECT p FROM Cocinero c JOIN c.platos p WHERE c=:cocinero"),
         @NamedQuery (name="Cocinero.findByIngrediente",
-                query="SELECT c FROM Cocinero c JOIN c.platos p WHERE p.ingrediente=:ingrediente")*/
-
+                query="SELECT c FROM Cocinero c JOIN c.platos p WHERE p IN (SELECT p2 FROM Plato p2 WHERE :ingrediente MEMBER OF p2.ingredientes)")
 })
 @Entity
 public class Cocinero extends Empleado{
