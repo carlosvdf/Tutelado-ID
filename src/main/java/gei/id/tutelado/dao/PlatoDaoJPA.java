@@ -134,14 +134,14 @@ public class PlatoDaoJPA implements PlatoDao{
 	}
 
 	@Override
-	public Plato recuperaMediaIngredientes() {
-		List <Plato> platos=null;
+	public Double recuperaMediaIngredientes() {
+		Double media= null;
 
 		try {
 			em = emf.createEntityManager();
 			em.getTransaction().begin();
 
-			platos = em.createNamedQuery("Plato.recuperaMediaIngredientes", Plato.class).getResultList();
+			media = em.createNamedQuery("Plato.recuperaMediaIngredientes",Double.class).getSingleResult();
 
 			em.getTransaction().commit();
 			em.close();
@@ -155,6 +155,6 @@ public class PlatoDaoJPA implements PlatoDao{
 			}
 		}
 
-		return (platos.size()==0?null:platos.get(0));
+		return media;
 	}
 }

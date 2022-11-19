@@ -6,6 +6,7 @@ import gei.id.tutelado.model.Plato;
 import java.util.List;
 
 
+
 public interface PlatoDao {
     
     void setup (Configuracion config);
@@ -20,5 +21,5 @@ public interface PlatoDao {
 
 	// QUERIES ADICIONAIS
 
-	Plato recuperaMediaIngredientes();
+	Double recuperaMediaIngredientes();
 }

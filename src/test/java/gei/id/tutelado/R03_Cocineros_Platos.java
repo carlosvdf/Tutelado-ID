@@ -12,6 +12,8 @@ import org.junit.rules.TestWatcher;
 import org.junit.runner.Description;
 import org.junit.runners.MethodSorters;
 
+
+
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class R03_Cocineros_Platos {
 
@@ -271,8 +273,32 @@ public class R03_Cocineros_Platos {
 		Assert.assertNull(logDao.recuperaPorCodigo(produtorDatos.e1A.getCodigo()));
 		Assert.assertNull(logDao.recuperaPorCodigo(produtorDatos.e1B.getCodigo()));
 
-    } 	
+    }*/
 
+	@Test 
+    public void test06_mediaIngredientesPlato() {
+
+    	Double media;    	
+
+    	log.info("");	
+		log.info("Configurando situación de partida do test -----------------------------------------------------------------------");
+
+		produtorDatos.creaCocinerosConPlatos();
+    	produtorDatos.gravaCocineros();
+
+    	log.info("");	
+		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
+    	log.info("Obxectivo: Proba da consulta Plato.recuperaMediaIngredientes\n");   
+
+    	// Situación de partida:
+    	// u1, e1A, e1B desligados
+
+		media = platoDao.recuperaMediaIngredientes();
+		
+		Assert.assertEquals((Double)3.0, media);
+    }
+
+    /*
     @Test 
     public void test07_EAGER() {
     	
