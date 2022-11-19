@@ -209,7 +209,7 @@ public class R03_Cocineros_Platos {
 
 
     } 	
-/*
+
     @Test 
     public void test05_Propagacion_Persist() {
 
@@ -217,7 +217,7 @@ public class R03_Cocineros_Platos {
     	log.info("");	
 		log.info("Configurando situación de partida do test -----------------------------------------------------------------------");
 
-		produtorDatos.creaPlatosSoltos();
+		produtorDatos.creaCocinerosSoltos();
     	produtorDatos.creaPlatosSoltos();
     	produtorDatos.c1.engadirPlato(produtorDatos.p1);
     	produtorDatos.c1.engadirPlato(produtorDatos.p2);
@@ -243,15 +243,15 @@ public class R03_Cocineros_Platos {
     	Assert.assertNotNull(produtorDatos.p1.getId());
     	Assert.assertNotNull(produtorDatos.p2.getId());
     }
-/*
+
     @Test 
     public void test05_Propagacion_Remove() {
     	
     	log.info("");	
 		log.info("Configurando situación de partida do test -----------------------------------------------------------------------");
    	
-    	produtorDatos.creaUsuariosConEntradasLog();
-    	produtorDatos.gravaUsuarios();
+    	produtorDatos.creaCocinerosConPlatos();
+    	produtorDatos.gravaCocineros();
 
     	log.info("");	
 		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
@@ -260,19 +260,19 @@ public class R03_Cocineros_Platos {
     	// Situación de partida:
     	// u1, e1A, e1B desligados
 
-    	Assert.assertNotNull(usuDao.recuperaPorNif(produtorDatos.u1.getNif()));
-		Assert.assertNotNull(logDao.recuperaPorCodigo(produtorDatos.e1A.getCodigo()));
-		Assert.assertNotNull(logDao.recuperaPorCodigo(produtorDatos.e1B.getCodigo()));
+    	Assert.assertNotNull(cociDao.recuperaPorNif(produtorDatos.c1.getNif()));
+		Assert.assertNotNull(platoDao.recuperaPorNombre(produtorDatos.p1.getNombre()));
+		Assert.assertNotNull(platoDao.recuperaPorNombre(produtorDatos.p2.getNombre()));
 		
 		// Aqui o remove sobre u1 debe propagarse a e1A e e1B
-		usuDao.elimina(produtorDatos.u1);    	
+		cociDao.elimina(produtorDatos.c1);
 		
-		Assert.assertNull(usuDao.recuperaPorNif(produtorDatos.u1.getNif()));
-		Assert.assertNull(logDao.recuperaPorCodigo(produtorDatos.e1A.getCodigo()));
-		Assert.assertNull(logDao.recuperaPorCodigo(produtorDatos.e1B.getCodigo()));
+		Assert.assertNull(cociDao.recuperaPorNif(produtorDatos.c1.getNif()));
+		Assert.assertNull(platoDao.recuperaPorNombre(produtorDatos.p1.getNombre()));
+		Assert.assertNull(platoDao.recuperaPorNombre(produtorDatos.p2.getNombre()));
 
-    }*/
-
+    }
+/*
 	@Test 
     public void test06_mediaIngredientesPlato() {
 
