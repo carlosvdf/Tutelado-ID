@@ -20,6 +20,9 @@ public class Cocinero extends Empleado{
     @OrderBy("nombre ASC")
     private SortedSet<Plato> platos = new TreeSet<Plato>();
 
+    public SortedSet<Plato> getPlatos() {
+        return platos;
+    }
 
     public void engadirPlato(Plato plato) {
         this.platos.add(plato);

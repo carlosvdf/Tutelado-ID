@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface CocineroDao extends EmpleadoDao {
 
+    Cocinero restauraPlatos(Cocinero cocinero);
+
     List<Plato> recuperaPlatos(Cocinero cocinero);
 
     List<Cocinero> findByIngrediente (String ingrediente);
