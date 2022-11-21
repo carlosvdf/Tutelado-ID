@@ -4,6 +4,8 @@ import gei.id.tutelado.configuracion.Configuracion;
 import gei.id.tutelado.configuracion.ConfiguracionJPA;
 import gei.id.tutelado.dao.CocineroDao;
 import gei.id.tutelado.dao.CocineroDaoJPA;
+import gei.id.tutelado.dao.EmpleadoDao;
+import gei.id.tutelado.dao.EmpleadoDaoJPA;
 import gei.id.tutelado.model.Cocinero;
 
 import java.util.List;
@@ -26,8 +28,10 @@ public class R01_Cocineros {
     
     private static Configuracion cfg;
     private static CocineroDao cociDao;
-    
-    @Rule
+	private static EmpleadoDao empDao;
+
+
+	@Rule
     public TestRule watcher = new TestWatcher() {
        protected void starting(Description description) {
     	   log.info("");
@@ -50,6 +54,9 @@ public class R01_Cocineros {
 
     	cociDao = new CocineroDaoJPA();
     	cociDao.setup(cfg);
+
+		empDao = new EmpleadoDaoJPA();
+		empDao.setup(cfg);
     	
     	produtorDatos = new ProdutorDatosCocinero();
     	produtorDatos.Setup(cfg);
@@ -94,7 +101,7 @@ public class R01_Cocineros {
 
     	log.info("Probando recuperacion por nif EXISTENTE --------------------------------------------------");
 
-    	c = (Cocinero) cociDao.recuperaPorNif(produtorDatos.c0.getNif());
+    	c = (Cocinero) empDao.recuperaPorNif(produtorDatos.c0.getNif());
     	Assert.assertEquals(produtorDatos.c0.getNif(),      c.getNif());
     	Assert.assertEquals(produtorDatos.c0.getNombre(),     c.getNombre());
     	Assert.assertEquals(produtorDatos.c0.getApellido1(), c.getApellido1());
@@ -106,7 +113,7 @@ public class R01_Cocineros {
 		log.info("");
 		log.info("Probando recuperacion por nif INEXISTENTE -----------------------------------------------");
     	
-    	c = (Cocinero) cociDao.recuperaPorNif("iwbvyhuebvuwebvi");
+    	c = (Cocinero) empDao.recuperaPorNif("iwbvyhuebvuwebvi");
     	Assert.assertNull (c);
 
     } 	
@@ -127,7 +134,7 @@ public class R01_Cocineros {
     	// c0 transitorio
     	
     	Assert.assertNull(produtorDatos.c0.getId());
-    	cociDao.almacena(produtorDatos.c0);
+    	empDao.almacena(produtorDatos.c0);
     	Assert.assertNotNull(produtorDatos.c0.getId());
     }
 
@@ -149,9 +156,9 @@ public class R01_Cocineros {
     	// Situación de partida:
     	// c0 desligado
 
-    	Assert.assertNotNull(cociDao.recuperaPorNif(produtorDatos.c0.getNif()));
-    	cociDao.elimina(produtorDatos.c0);
-    	Assert.assertNull(cociDao.recuperaPorNif(produtorDatos.c0.getNif()));
+    	Assert.assertNotNull(empDao.recuperaPorNif(produtorDatos.c0.getNif()));
+    	empDao.elimina(produtorDatos.c0);
+    	Assert.assertNull(empDao.recuperaPorNif(produtorDatos.c0.getNif()));
     } 	
 
 
@@ -176,13 +183,13 @@ public class R01_Cocineros {
 
 		novoNome = new String ("Nome novo");
 
-		c1 = (Cocinero) cociDao.recuperaPorNif(produtorDatos.c0.getNif());
+		c1 = (Cocinero) empDao.recuperaPorNif(produtorDatos.c0.getNif());
 		Assert.assertNotEquals(novoNome, c1.getNombre());
     	c1.setNombre(novoNome);
 
-    	cociDao.modifica(c1);
+    	empDao.modifica(c1);
     	
-		c2 = (Cocinero) cociDao.recuperaPorNif(produtorDatos.c0.getNif());
+		c2 = (Cocinero) empDao.recuperaPorNif(produtorDatos.c0.getNif());
 		Assert.assertEquals (novoNome, c2.getNombre());
 
     } 	
@@ -222,7 +229,7 @@ public class R01_Cocineros {
 		log.info("Configurando situación de partida do test -----------------------------------------------------------------------");
 
 		produtorDatos.creaCocinerosSoltos();
-    	cociDao.almacena(produtorDatos.c0);
+    	empDao.almacena(produtorDatos.c0);
     	
     	log.info("");	
 		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
@@ -237,7 +244,7 @@ public class R01_Cocineros {
 		log.info("Probando gravacion de cocinero con Nif duplicado -----------------------------------------------");
     	produtorDatos.c1.setNif(produtorDatos.c0.getNif());
     	try {
-        	cociDao.almacena(produtorDatos.c1);
+        	empDao.almacena(produtorDatos.c1);
         	excepcion=false;
     	} catch (Exception ex) {
     		excepcion=true;
@@ -250,7 +257,7 @@ public class R01_Cocineros {
 		log.info("Probando gravacion de cocinero con Nif nulo ----------------------------------------------------");
     	produtorDatos.c1.setNif(null);
     	try {
-        	cociDao.almacena(produtorDatos.c1);
+        	empDao.almacena(produtorDatos.c1);
         	excepcion=false;
     	} catch (Exception ex) {
     		excepcion=true;

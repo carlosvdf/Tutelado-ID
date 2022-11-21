@@ -17,10 +17,6 @@ public interface PlatoDao {
 	Plato modifica (Plato user);
 	void elimina (Plato user);
 
-	List<Plato> recuperaTodos();
-
-    List<Cocinero> recuperaCocineros(Plato plato);
-
     Plato recuperaPorNombre (String nombre);
 
 	// QUERIES ADICIONAIS

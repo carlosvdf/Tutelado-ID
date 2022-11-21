@@ -20,7 +20,7 @@ public class CocineroDaoJPA implements CocineroDao{
         this.emf = (EntityManagerFactory) config.get("EMF");
     }
 
-    @Override
+    /*@Override
     public Empleado almacena(Empleado empleado) {
         try {
             em = emf.createEntityManager();
@@ -114,7 +114,7 @@ public class CocineroDaoJPA implements CocineroDao{
         }
 
         return (empleados.size()!=0?empleados.get(0):null);
-    }
+    }*/
 
     @Override
     public Cocinero restauraPlatos(Cocinero cocinero) {

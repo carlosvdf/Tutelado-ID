@@ -28,6 +28,7 @@ public class R03_Cocineros_Platos {
     
     private static Configuracion cfg;
     private static CocineroDao cociDao;
+	private static EmpleadoDao empDao;
     private static PlatoDao platoDao;
     
     @Rule
@@ -56,6 +57,9 @@ public class R03_Cocineros_Platos {
     	platoDao = new PlatoDaoJPA();
     	cociDao.setup(cfg);
     	platoDao.setup(cfg);
+
+		empDao = new EmpleadoDaoJPA();
+		empDao.setup(cfg);
     	
     	produtorDatos = new ProdutorDatosCocinero();
     	produtorDatos.Setup(cfg);
@@ -242,7 +246,7 @@ public class R03_Cocineros_Platos {
 		log.info("Gravando na BD usuario con entradas de log ----------------------------------------------------------------------");
 
     	// Aqui o persist sobre u1 debe propagarse a e1A e e1B
-		cociDao.almacena(produtorDatos.c1);
+		empDao.almacena(produtorDatos.c1);
 
 		Assert.assertNotNull(produtorDatos.c1.getId());
     	Assert.assertNotNull(produtorDatos.p1.getId());
@@ -265,14 +269,14 @@ public class R03_Cocineros_Platos {
     	// Situación de partida:
     	// u1, e1A, e1B desligados
 
-    	Assert.assertNotNull(cociDao.recuperaPorNif(produtorDatos.c1.getNif()));
+    	Assert.assertNotNull(empDao.recuperaPorNif(produtorDatos.c1.getNif()));
 		Assert.assertNotNull(platoDao.recuperaPorNombre(produtorDatos.p1.getNombre()));
 		Assert.assertNotNull(platoDao.recuperaPorNombre(produtorDatos.p2.getNombre()));
 		
 		// Aqui o remove sobre u1 debe propagarse a e1A e e1B
-		cociDao.elimina(produtorDatos.c1);
+		empDao.elimina(produtorDatos.c1);
 		
-		Assert.assertNull(cociDao.recuperaPorNif(produtorDatos.c1.getNif()));
+		Assert.assertNull(empDao.recuperaPorNif(produtorDatos.c1.getNif()));
 		Assert.assertNull(platoDao.recuperaPorNombre(produtorDatos.p1.getNombre()));
 		Assert.assertNull(platoDao.recuperaPorNombre(produtorDatos.p2.getNombre()));
 
@@ -386,7 +390,7 @@ public class R03_Cocineros_Platos {
     	
 		log.info("Probando (excepcion tras) recuperacion LAZY ---------------------------------------------------------------------");
     	
-    	c = (Cocinero) cociDao.recuperaPorNif(produtorDatos.c1.getNif());
+    	c = (Cocinero) empDao.recuperaPorNif(produtorDatos.c1.getNif());
 		log.info("Acceso a entradas de log de usuario");
     	try	{
         	Assert.assertEquals(2, c.getPlatos().size());
@@ -402,7 +406,7 @@ public class R03_Cocineros_Platos {
     	log.info("");
     	log.info("Probando carga forzada de coleccion LAZY ------------------------------------------------------------------------");
     	
-    	c = (Cocinero) cociDao.recuperaPorNif(produtorDatos.c1.getNif());   // Usuario u con proxy sen inicializar
+    	c = (Cocinero) empDao.recuperaPorNif(produtorDatos.c1.getNif());   // Usuario u con proxy sen inicializar
     	c = cociDao.restauraPlatos(c);						// Usuario u con proxy xa inicializado
     	
     	Assert.assertEquals(2, c.getPlatos().size());
