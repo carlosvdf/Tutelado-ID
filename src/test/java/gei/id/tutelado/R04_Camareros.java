@@ -22,7 +22,7 @@ public class R04_Camareros {
     
     private Logger log = LogManager.getLogger("gei.id.tutelado");
 
-    private static ProdutorDatos produtorDatos = new ProdutorDatos();
+    private static ProdutorDatosCamareros produtorDatos = new ProdutorDatosCamareros();
     
     private static Configuracion cfg;
     private static CamareroDao camDao;
@@ -51,7 +51,7 @@ public class R04_Camareros {
     	camDao = new CamareroDaoJPA();
     	camDao.setup(cfg);
     	
-    	produtorDatos = new ProdutorDatos();
+    	produtorDatos = new ProdutorDatosCamareros();
     	produtorDatos.Setup(cfg);
     }
     

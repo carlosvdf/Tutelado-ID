@@ -22,7 +22,7 @@ public class R01_Cocineros {
 
     private Logger log = LogManager.getLogger("gei.id.tutelado");
 
-    private static ProdutorDatosProba produtorDatos = new ProdutorDatosProba();
+    private static ProdutorDatosCocinero produtorDatos = new ProdutorDatosCocinero();
     
     private static Configuracion cfg;
     private static CocineroDao cociDao;
@@ -51,7 +51,7 @@ public class R01_Cocineros {
     	cociDao = new CocineroDaoJPA();
     	cociDao.setup(cfg);
     	
-    	produtorDatos = new ProdutorDatosProba();
+    	produtorDatos = new ProdutorDatosCocinero();
     	produtorDatos.Setup(cfg);
     }
     

@@ -32,7 +32,7 @@ public class R02_Camareros_Mesas {
     
     private Logger log = LogManager.getLogger("gei.id.tutelado");
 
-    private static ProdutorDatos produtorDatos = new ProdutorDatos();
+    private static ProdutorDatosCamareros produtorDatos = new ProdutorDatosCamareros();
     
     private static Configuracion cfg;
     private static CamareroDao camDao;
@@ -64,7 +64,7 @@ public class R02_Camareros_Mesas {
     	camDao.setup(cfg);
     	mesaDao.setup(cfg);
     	
-    	produtorDatos = new ProdutorDatos();
+    	produtorDatos = new ProdutorDatosCamareros();
     	produtorDatos.Setup(cfg);
     }
     

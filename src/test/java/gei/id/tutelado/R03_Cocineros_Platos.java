@@ -24,7 +24,7 @@ public class R03_Cocineros_Platos {
 
     private Logger log = LogManager.getLogger("gei.id.tutelado");
 
-    private static ProdutorDatosProba produtorDatos = new ProdutorDatosProba();
+    private static ProdutorDatosCocinero produtorDatos = new ProdutorDatosCocinero();
     
     private static Configuracion cfg;
     private static CocineroDao cociDao;
@@ -57,7 +57,7 @@ public class R03_Cocineros_Platos {
     	cociDao.setup(cfg);
     	platoDao.setup(cfg);
     	
-    	produtorDatos = new ProdutorDatosProba();
+    	produtorDatos = new ProdutorDatosCocinero();
     	produtorDatos.Setup(cfg);
     }
     
@@ -367,7 +367,6 @@ public class R03_Cocineros_Platos {
     public void test08_LAZY() {
     	
     	Cocinero c;
-    	Plato p;
     	Boolean excepcion;
     	
     	log.info("");	
