@@ -14,8 +14,6 @@
 	        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
 	 		<!-- Entity classes --> 
-	        <class>gei.id.tutelado.model.Usuario</class>
-	        <class>gei.id.tutelado.model.EntradaLog</class>
 			<class>gei.id.tutelado.model.Empleado</class>
 			<class>gei.id.tutelado.model.Cocinero</class>
 			<class>gei.id.tutelado.model.Camarero</class>
