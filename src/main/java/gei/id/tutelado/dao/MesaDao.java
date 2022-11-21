@@ -17,6 +17,5 @@ public interface MesaDao {
 	Mesa recuperaPorCodigo (String codigo);
 	
 	//QUERIES ADICIONAIS
-	List<Mesa> recuperaTodasCamarero(Camarero c);
     
 }

@@ -16,12 +16,7 @@ initialValue=0, allocationSize=1)
 		@NamedQuery (name="Plato.recuperaMediaIngredientes",
 				 query="SELECT AVG(size(p.ingredientes)) FROM Plato p"),
 		@NamedQuery (name="Plato.recuperaTodos",
-	 			 query="SELECT p FROM Plato p"),
-		@NamedQuery (name="Plato.recuperaTodosTipo",
-				 query="SELECT p FROM Plato p where p.tipo=:tipo"),
-		@NamedQuery (name="Plato.recuperaCocineros",
-				query="SELECT c FROM Cocinero c JOIN Plato p where c.platos =:plato")
-				 //Añadir por ingrediente?
+	 			 query="SELECT p FROM Plato p")
 })
 
 @Entity

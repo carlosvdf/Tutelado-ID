@@ -6,8 +6,6 @@ import java.util.TreeSet;
 
 
 @NamedQueries ({
-        @NamedQuery (name="Cocinero.recuperaTodos",
-                query="SELECT c FROM Cocinero c ORDER BY c.nif"),
 		@NamedQuery (name="Cocinero.recuperaPlatos",
 				query="SELECT p FROM Cocinero c JOIN c.platos p WHERE c=:cocinero"),
         @NamedQuery (name="Cocinero.findByIngrediente",

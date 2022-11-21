@@ -109,28 +109,5 @@ public class MesaDaoJPA implements MesaDao{
 		return (mesas.size()==0?null:mesas.get(0));
 	}
     
-    @Override
-	public List<Mesa> recuperaTodasCamarero(Camarero c) {
-		List <Mesa> mesas=null;
 
-		try {
-			em = emf.createEntityManager();
-			em.getTransaction().begin();
-
-			mesas = em.createNamedQuery("Mesa.recuperaTodasUsuario", Mesa.class).setParameter("c", c).getResultList(); 
-
-			em.getTransaction().commit();
-			em.close();	
-
-		}
-		catch (Exception ex ) {
-			if (em!=null && em.isOpen()) {
-				if (em.getTransaction().isActive()) em.getTransaction().rollback();
-				em.close();
-				throw(ex);
-			}
-		}
-
-		return mesas;
-	}
 }

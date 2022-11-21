@@ -135,7 +135,7 @@ public class R03_Cocineros_Platos {
     	log.info("Obxectivo: Proba da gravación de platos soltos\n"
     			+ "\t\t\t\t Casos contemplados:\n"
     			+ "\t\t\t\t a) Primeiro plato vinculado a un cocinero\n"
-    			+ "\t\t\t\t b) Novo plato para un cocinero con platos previos\n");
+				+ "\t\t\t\t b) Novo plato para un cocinero con platos previos\n");
 
     	// Situación de partida:
     	// c1 desligado

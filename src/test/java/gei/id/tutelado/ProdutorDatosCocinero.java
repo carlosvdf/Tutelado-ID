@@ -157,7 +157,7 @@ public class ProdutorDatosCocinero {
 			em = emf.createEntityManager();
 			em.getTransaction().begin();
 			
-			Iterator <Cocinero> itC = em.createNamedQuery("Cocinero.recuperaTodos", Cocinero.class).getResultList().iterator();
+			Iterator<Empleado> itC = em.createNamedQuery("Empleado.recuperaTodos", Empleado.class).getResultList().iterator();
 			while (itC.hasNext()) em.remove(itC.next());
 			Iterator <Plato> itP = em.createNamedQuery("Plato.recuperaTodos", Plato.class).getResultList().iterator();
 			while (itP.hasNext()) em.remove(itP.next());
