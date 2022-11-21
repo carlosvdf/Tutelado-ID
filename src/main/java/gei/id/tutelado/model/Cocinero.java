@@ -24,7 +24,7 @@ public class Cocinero extends Empleado{
 
     public void engadirPlato(Plato plato) {
         this.platos.add(plato);
-        // É un sorted set, engadimos sempre por orde de nome (ascendente)
+        // É un sorted set, engadimos en orde alfabetico
     }
 
     @Override

@@ -111,6 +111,7 @@ public class PlatoDaoJPA implements PlatoDao{
 
 	@Override
 	public Double recuperaMediaIngredientes() {
+		//Devolve a media de ingredientes que teñen os platos
 		Double media= null;
 
 		try {

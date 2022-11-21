@@ -104,7 +104,7 @@ public class R03_Cocineros_Platos {
     	// Situación de partida:
     	// c1, p1, p2 desligados
     	
-		log.info("Probando recuperacion por codigo EXISTENTE --------------------------------------------------");
+		log.info("Probando recuperacion por nome EXISTENTE --------------------------------------------------");
 
     	p = platoDao.recuperaPorNombre(produtorDatos.p1.getNombre());
 
@@ -116,7 +116,7 @@ public class R03_Cocineros_Platos {
 		}
 
     	log.info("");	
-		log.info("Probando recuperacion por codigo INEXISTENTE --------------------------------------------------");
+		log.info("Probando recuperacion por nome INEXISTENTE --------------------------------------------------");
     	
     	p = platoDao.recuperaPorNombre("iwbvyhuebvuwebvi");
     	Assert.assertNull (p);
@@ -138,8 +138,8 @@ public class R03_Cocineros_Platos {
 		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
     	log.info("Obxectivo: Proba da gravación de platos soltos\n"
     			+ "\t\t\t\t Casos contemplados:\n"
-    			+ "\t\t\t\t a) Primeiro plato vinculado a un cocinero\n"
-				+ "\t\t\t\t b) Novo plato para un cocinero con platos previos\n");
+    			+ "\t\t\t\t a) Primeiro plato vinculado a un cociñeiro\n"
+				+ "\t\t\t\t b) Novo plato para un cociñeiro con platos previos\n");
 
     	// Situación de partida:
     	// c1 desligado
@@ -148,7 +148,7 @@ public class R03_Cocineros_Platos {
     	produtorDatos.c1.engadirPlato(produtorDatos.p1);
 		
     	log.info("");	
-		log.info("Gravando primeira entrada de log dun usuario --------------------------------------------------------------------");
+		log.info("Gravando primeiro plato dun cociñeiro --------------------------------------------------------------------");
     	Assert.assertNull(produtorDatos.p1.getId());
     	platoDao.almacena(produtorDatos.p1);
     	Assert.assertNotNull(produtorDatos.p1.getId());
@@ -156,7 +156,7 @@ public class R03_Cocineros_Platos {
     	produtorDatos.c1.engadirPlato(produtorDatos.p2);
 
     	log.info("");	
-		log.info("Gravando segunda entrada de log dun usuario ---------------------------------------------------------------------");
+		log.info("Gravando segundo plato dun cociñeiro ---------------------------------------------------------------------");
     	Assert.assertNull(produtorDatos.p2.getId());
     	platoDao.almacena(produtorDatos.p2);
     	Assert.assertNotNull(produtorDatos.p2.getId());
@@ -174,7 +174,7 @@ public class R03_Cocineros_Platos {
 
     	log.info("");	
 		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
-    	log.info("Obxectivo: Proba de eliminación de plato solto\n");
+    	log.info("Obxectivo: Proba de eliminación dun plato solto\n");
     	
 
 
@@ -237,15 +237,15 @@ public class R03_Cocineros_Platos {
     	log.info("Obxectivo: Proba da gravación de novo cocinero con platos (novos) asociados\n");
 
     	// Situación de partida:
-    	// u1, e1A, e1B transitorios
+    	// c1, p1, p2 transitorios
 
     	Assert.assertNull(produtorDatos.c1.getId());
     	Assert.assertNull(produtorDatos.p1.getId());
     	Assert.assertNull(produtorDatos.p2.getId());
     	
-		log.info("Gravando na BD usuario con entradas de log ----------------------------------------------------------------------");
+		log.info("Gravando na BD o cociñeiro con platos asociados ----------------------------------------------------------------------");
 
-    	// Aqui o persist sobre u1 debe propagarse a e1A e e1B
+    	// Aqui o persist sobre c1 debe propagarse a p1 e p2
 		empDao.almacena(produtorDatos.c1);
 
 		Assert.assertNotNull(produtorDatos.c1.getId());
@@ -264,16 +264,16 @@ public class R03_Cocineros_Platos {
 
     	log.info("");	
 		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
-    	log.info("Obxectivo: Proba de eliminación de de usuario con entradas de log asociadas\n");
+    	log.info("Obxectivo: Proba de eliminación de cociñeiro con platos asociados\n");
 
     	// Situación de partida:
-    	// u1, e1A, e1B desligados
+    	// c1, p1, p2 desligados
 
     	Assert.assertNotNull(empDao.recuperaPorNif(produtorDatos.c1.getNif()));
 		Assert.assertNotNull(platoDao.recuperaPorNombre(produtorDatos.p1.getNombre()));
 		Assert.assertNotNull(platoDao.recuperaPorNombre(produtorDatos.p2.getNombre()));
 		
-		// Aqui o remove sobre u1 debe propagarse a e1A e e1B
+		// Aqui o remove sobre c1 debe propagarse a p1 e p2
 		empDao.elimina(produtorDatos.c1);
 		
 		Assert.assertNull(empDao.recuperaPorNif(produtorDatos.c1.getNif()));
@@ -295,10 +295,7 @@ public class R03_Cocineros_Platos {
 
     	log.info("");	
 		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
-    	log.info("Obxectivo: Proba da consulta Plato.recuperaMediaIngredientes\n");   
-
-    	// Situación de partida:
-    	// u1, e1A, e1B desligados
+    	log.info("Obxectivo: Proba da consulta Plato.recuperaMediaIngredientes\n");
 
 		media = platoDao.recuperaMediaIngredientes();
 		
@@ -306,7 +303,7 @@ public class R03_Cocineros_Platos {
     }
 
 	@Test 
-    public void test06_platosCocinero() {
+    public void test07_platosCocinero() {
 
     	List<Plato> listaP;
     	
@@ -320,8 +317,6 @@ public class R03_Cocineros_Platos {
 		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
     	log.info("Obxectivo: Proba da consulta Cocinero.recuperaPlatos\n");   
 
-    	// Situación de partida:
-    	// u1, e1A, e1B desligados
 
 		listaP = cociDao.recuperaPlatos(produtorDatos.c0);
 		Assert.assertEquals(0, listaP.size());
@@ -332,40 +327,6 @@ public class R03_Cocineros_Platos {
 		Assert.assertEquals(produtorDatos.p2.getNombre(), listaP.get(0).getNombre());
 
     }
-
-    /*
-    @Test 
-    public void test07_EAGER() {
-    	
-    	Usuario u;
-    	EntradaLog e;
-    	Boolean excepcion;
-    	
-    	log.info("");	
-		log.info("Configurando situación de partida do test -----------------------------------------------------------------------");
-
-		produtorDatos.creaUsuariosConEntradasLog();
-    	produtorDatos.gravaUsuarios();
-
-		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
-    	log.info("Obxectivo: Proba da recuperación de propiedades EAGER\n");   
-
-    	// Situación de partida:
-    	// u1, e1A, e1B desligados
-    	
-		log.info("Probando (que non hai excepcion tras) acceso inicial a propiedade EAGER fora de sesion ----------------------------------------");
-    	
-    	e = logDao.recuperaPorCodigo(produtorDatos.e1A.getCodigo());  
-		log.info("Acceso a usuario de entrada de log");
-    	try	{
-        	Assert.assertEquals(produtorDatos.u1, e.getUsuario());
-        	excepcion=false;
-    	} catch (LazyInitializationException ex) {
-    		excepcion=true;
-    		log.info(ex.getClass().getName());
-    	};    	
-    	Assert.assertFalse(excepcion);    
-    } 	*/
 
     @Test 
     public void test08_LAZY() {
@@ -382,16 +343,16 @@ public class R03_Cocineros_Platos {
 		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
     	log.info("Obxectivo: Proba da recuperación de propiedades LAZY\n"   
 		+ "\t\t\t\t Casos contemplados:\n"
-		+ "\t\t\t\t a) Recuperación de usuario con colección (LAZY) de entradas de log \n"
+		+ "\t\t\t\t a) Recuperación de cociñeiro con colección (LAZY) de platos \n"
 		+ "\t\t\t\t b) Carga forzada de colección LAZY da dita coleccion\n");
 
     	// Situación de partida:
-    	// u1, e1A, e1B desligados
+    	// c1, p1, p2 desligados
     	
 		log.info("Probando (excepcion tras) recuperacion LAZY ---------------------------------------------------------------------");
     	
     	c = (Cocinero) empDao.recuperaPorNif(produtorDatos.c1.getNif());
-		log.info("Acceso a entradas de log de usuario");
+		log.info("Acceso a platos");
     	try	{
         	Assert.assertEquals(2, c.getPlatos().size());
         	Assert.assertEquals(produtorDatos.p1, c.getPlatos().first());
@@ -406,8 +367,8 @@ public class R03_Cocineros_Platos {
     	log.info("");
     	log.info("Probando carga forzada de coleccion LAZY ------------------------------------------------------------------------");
     	
-    	c = (Cocinero) empDao.recuperaPorNif(produtorDatos.c1.getNif());   // Usuario u con proxy sen inicializar
-    	c = cociDao.restauraPlatos(c);						// Usuario u con proxy xa inicializado
+    	c = (Cocinero) empDao.recuperaPorNif(produtorDatos.c1.getNif());   // Cociñeiro c con proxy sen inicializar
+    	c = cociDao.restauraPlatos(c);						// Cociñeiro c con proxy xa inicializado
     	
     	Assert.assertEquals(2, c.getPlatos().size());
 		Assert.assertEquals(produtorDatos.p1.getNombre(), c.getPlatos().first().getNombre());
@@ -415,17 +376,14 @@ public class R03_Cocineros_Platos {
 		Assert.assertEquals(produtorDatos.p2.getNombre(), c.getPlatos().last().getNombre());
 		Assert.assertEquals(produtorDatos.p2.getTipo(), c.getPlatos().last().getTipo());
 
-
-
-
+		//Comparamos obxecto a obxecto da lista
 		for(int i= 0; i<c.getPlatos().first().getIngredientes().size();i++){
 			Assert.assertEquals (produtorDatos.p1.getIngredientes().get(i),   c.getPlatos().first().getIngredientes().get(i));
 		}
 		for(int i= 0; i<c.getPlatos().last().getIngredientes().size();i++){
 			Assert.assertEquals (produtorDatos.p2.getIngredientes().get(i),   c.getPlatos().last().getIngredientes().get(i));
 		}
-    //	Assert.assertEquals(produtorDatos.p1, c.getPlatos().first());
-    //	Assert.assertEquals(produtorDatos.p2, c.getPlatos().last());
+
 
     } 	
 
@@ -447,15 +405,15 @@ public class R03_Cocineros_Platos {
 		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
     	log.info("Obxectivo: Proba de violacion de restricions not null e unique\n"   
     			+ "\t\t\t\t Casos contemplados:\n"
-    			+ "\t\t\t\t b) Gravación de entrada con codigo nulo\n"
-    			+ "\t\t\t\t c) Gravación de entrada con codigo duplicado\n");
+    			+ "\t\t\t\t b) Gravación de plato con nome nulo\n"
+    			+ "\t\t\t\t c) Gravación de plato con nome duplicado\n");
 
 
-    	// Ligar entrada a usuario para poder probar outros erros
+    	// Ligar o plato a cociñeiro para poder probar outros erros
 		produtorDatos.c1.engadirPlato(produtorDatos.p2);
     	    	
     	log.info("");	
-		log.info("Probando gravacion de entrada con codigo nulo -------------------------------------------------------------------");
+		log.info("Probando gravacion de plato con nome nulo -------------------------------------------------------------------");
 		produtorDatos.p2.setNombre(null);
     	try {
         	platoDao.almacena(produtorDatos.p2);
@@ -467,7 +425,7 @@ public class R03_Cocineros_Platos {
     	Assert.assertTrue(excepcion);
 
     	log.info("");	
-		log.info("Probando gravacion de entrada con codigo duplicado --------------------------------------------------------------");
+		log.info("Probando gravacion de plato con nome duplicado --------------------------------------------------------------");
 		produtorDatos.p2.setNombre(produtorDatos.p1.getNombre());
     	try {
         	platoDao.almacena(produtorDatos.p2);

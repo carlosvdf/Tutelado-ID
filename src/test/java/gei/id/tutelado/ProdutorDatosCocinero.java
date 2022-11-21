@@ -16,9 +16,6 @@ public class ProdutorDatosCocinero {
 	// Crea un conxunto de obxectos para utilizar nos casos de proba
 	
 	private EntityManagerFactory emf=null;
-	
-	public Empleado e0, e1;
-	public List<Empleado> listaxeE;
 
 	public Cocinero c0, c1;
 	public List<Cocinero> listaxeC;
@@ -34,7 +31,7 @@ public class ProdutorDatosCocinero {
 
 	public void creaCocinerosSoltos() {
 
-		// Crea dous cocineros EN MEMORIA: c0, c1
+		// Crea dous cociñeiros EN MEMORIA: c0, c1
 		// SEN platos
 
 
@@ -63,7 +60,7 @@ public class ProdutorDatosCocinero {
 	public void creaPlatosSoltos () {
 
 		// Crea dous platos EN MEMORIA: p1, p2
-		// Sen empleado asignado (momentaneamente)
+		// Sen cociñeiro asignado (momentaneamente)
 		
 		this.p1=new Plato();
 		this.p1.setNombre("Macarrones con queso");
@@ -132,13 +129,6 @@ public class ProdutorDatosCocinero {
 			while (itC.hasNext()) {
 				Cocinero c = itC.next();
 				em.persist(c);
-				// DESCOMENTAR SE A PROPAGACION DO PERSIST NON ESTA ACTIVADA
-				/*
-				Iterator<Plato> it<p = c.getPlatos().iterator();
-				while (itP.hasNext()) {
-					em.persist(itP.next());
-				}
-				*/
 			}
 			em.getTransaction().commit();
 			em.close();

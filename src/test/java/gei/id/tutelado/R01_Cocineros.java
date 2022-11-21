@@ -91,7 +91,7 @@ public class R01_Cocineros {
     	
     	log.info("");	
 		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
-    	log.info("Obxectivo: Proba de recuperación desde a BD de cocineros (sen entradas asociadas) por nif\n"
+    	log.info("Obxectivo: Proba de recuperación desde a BD de cocineros (sen platos asociados) por nif\n"
     			+ "\t\t\t\t Casos contemplados:\n"
     			+ "\t\t\t\t a) Recuperación por nif existente\n"
     			+ "\t\t\t\t b) Recuperacion por nif inexistente\n");
@@ -128,7 +128,7 @@ public class R01_Cocineros {
     	
     	log.info("");	
 		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
-    	log.info("Obxectivo: Proba de gravación na BD de novo cocinero (sen platos asociadas)\n");
+    	log.info("Obxectivo: Proba de gravación na BD dun novo cociñeiro (sen platos asociados)\n");
     	
     	// Situación de partida:
     	// c0 transitorio
@@ -151,7 +151,7 @@ public class R01_Cocineros {
     	
     	log.info("");	
 		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
-    	log.info("Obxectivo: Proba de eliminación da BD de cocinero sen platos asociadas\n");
+    	log.info("Obxectivo: Proba de eliminación da BD do cociñeiro sen platos asociados\n");
  
     	// Situación de partida:
     	// c0 desligado
@@ -176,7 +176,7 @@ public class R01_Cocineros {
 
     	log.info("");	
 		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
-    	log.info("Obxectivo: Proba de modificación da información básica dun cocinero sen platos\n");
+    	log.info("Obxectivo: Proba de modificación da información básica dun cociñeiro sen platos\n");
 
     	// Situación de partida:
     	// c0 desligado
@@ -210,8 +210,6 @@ public class R01_Cocineros {
 		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
     	log.info("Obxectivo: Proba da consulta Cocinero.findByIngrediente\n");   
 
-    	// Situación de partida:
-    	// u1, e1A, e1B desligados
 
 		listaC = cociDao.findByIngrediente(ingrediente);
 		
@@ -235,8 +233,8 @@ public class R01_Cocineros {
 		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
     	log.info("Obxectivo: Proba de violación de restricións not null e unique\n"   
     			+ "\t\t\t\t Casos contemplados:\n"
-    			+ "\t\t\t\t a) Gravación de cocinero con nif duplicado\n"
-    			+ "\t\t\t\t b) Gravación de cocinero con nif nulo\n");
+    			+ "\t\t\t\t a) Gravación de cociñeiro con nif duplicado\n"
+    			+ "\t\t\t\t b) Gravación de cociñeiro con nif nulo\n");
 
     	// Situación de partida:
     	// c0 desligado, c1 transitorio
@@ -254,7 +252,7 @@ public class R01_Cocineros {
     	
     	// Nif nulo
     	log.info("");	
-		log.info("Probando gravacion de cocinero con Nif nulo ----------------------------------------------------");
+		log.info("Probando gravacion de cociñeiro con Nif nulo ----------------------------------------------------");
     	produtorDatos.c1.setNif(null);
     	try {
         	empDao.almacena(produtorDatos.c1);

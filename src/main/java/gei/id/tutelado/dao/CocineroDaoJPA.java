@@ -23,7 +23,7 @@ public class CocineroDaoJPA implements CocineroDao{
 
     @Override
     public Cocinero restauraPlatos(Cocinero cocinero) {
-        // Devolve o obxecto user coa coleccion de platos cargada (se non o estaba xa)
+        // Devolve o obxecto cocinero coa coleccion de platos cargada (se non o estaba xa)
 
         try {
             em = emf.createEntityManager();
@@ -35,13 +35,7 @@ public class CocineroDaoJPA implements CocineroDao{
                 if (ex2 instanceof LazyInitializationException)
 
                 {
-                    /* OPCION DE IMPLEMENTACION 1 (comentada): Cargar a propiedade "manualmente" cunha consulta,
-                     *  e actualizar tamen "manualmente" o valor da propiedade  */
-                    //List<EntradaLog> entradas = (List<EntradaLog>) entityManager.createQuery("From EntradaLog l where l.usuario=:usuario order by dataHora").setParameter("usuario",user).getResultList();
-                    //user.setEntradasLog (entradas);
-
-                    /* OPCION DE IMPLEMENTACIÓN 2: Volver a ligar o obxecto usuario a un novo CP,
-                     * e acceder á propiedade nese momento, para que Hibernate a cargue.*/
+                    // Ligamos o obxecto cocinero a un novo CP
                     cocinero = em.merge(cocinero);
                     cocinero.getPlatos().size();
 
@@ -65,6 +59,7 @@ public class CocineroDaoJPA implements CocineroDao{
     }
     @Override
     public List<Plato> recuperaPlatos(Cocinero cocinero) {
+        //devolve a lista de platos asigada ao cociñeiro que lle pasamos
         List<Plato> platos=null;
 
         try {
@@ -90,6 +85,7 @@ public class CocineroDaoJPA implements CocineroDao{
 
     @Override
     public List<Cocinero> findByIngrediente(String ingrediente) {
+        //Devolve a lista de cociñeiros que traballan co ingrediente que lle pasamos
         List<Cocinero> cocineros=null;
 
         try {
