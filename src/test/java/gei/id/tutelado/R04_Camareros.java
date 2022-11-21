@@ -177,7 +177,7 @@ public class R04_Camareros {
     	log.info("Obxectivo: Proba de modificación da información básica dun camarero sen mesas\n");
 
     	// Situación de partida:
-    	// c0 desligado
+    	// cam0 desligado
 
 		novoNome = new String ("Nome novo");
 
@@ -273,7 +273,7 @@ public class R04_Camareros {
     	// Situación de partida:
     	// cam0 desligado, cam1 transitorio
     	
-		log.info("Probando gravacion de usuario con Nif duplicado -----------------------------------------------");
+		log.info("Probando gravacion de camarero con Nif duplicado -----------------------------------------------");
     	produtorDatos.cam1.setNif(produtorDatos.cam0.getNif());
     	try {
         	empDao.almacena(produtorDatos.cam1);

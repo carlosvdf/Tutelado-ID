@@ -200,7 +200,7 @@ public class R02_Camareros_Mesas {
  
     	
     	// Situación de partida:
-    	// e1A desligado
+    	// m1 desligado
     	
 		novoTipo = new String ("Cafeteria");
 
@@ -214,8 +214,6 @@ public class R02_Camareros_Mesas {
 		m2 = mesaDao.recuperaPorCodigo(produtorDatos.m1.getCodigo());
 		Assert.assertEquals (novoTipo, m2.getTipo());
 
-    	// NOTA: Non probamos modificación de usuario da entrada porque non ten sentido no dominio considerado
-        // Hay que probar la modificación de camarero 
     }
     @Test 
     public void test07_EAGER() {
