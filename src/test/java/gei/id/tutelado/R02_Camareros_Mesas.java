@@ -133,10 +133,10 @@ public class R02_Camareros_Mesas {
 
     	log.info("");	
 		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
-    	log.info("Obxectivo: Proba da gravación de entradas de log soltas\n"   
+    	log.info("Obxectivo: Proba da gravación de mesas soltas\n"   
     			+ "\t\t\t\t Casos contemplados:\n"
-    			+ "\t\t\t\t a) Primeira entrada de log vinculada a un usuario\n"
-    			+ "\t\t\t\t b) Nova entrada de log para un usuario con entradas previas\n");     	
+    			+ "\t\t\t\t a) Primeira mesa vinculada a un camarero\n"
+    			+ "\t\t\t\t b) Nova mesa para un camarero con mesas previas\n");     	
 
     	// Situación de partida:
     	// cam1 desligado    	
@@ -265,14 +265,14 @@ public class R02_Camareros_Mesas {
 		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
     	log.info("Obxectivo: Proba de violacion de restricions not null e unique\n"   
     			+ "\t\t\t\t Casos contemplados:\n"
-    			+ "\t\t\t\t b) Gravación de entrada con codigo nulo\n"
-    			+ "\t\t\t\t c) Gravación de entrada con codigo duplicado\n");
+    			+ "\t\t\t\t b) Gravación de mesa con codigo nulo\n"
+    			+ "\t\t\t\t c) Gravación de mesa con codigo duplicado\n");
 
     	// Situación de partida:
     	// m1 desligado, m2 transitorio 
     	    	
     	log.info("");	
-		log.info("Probando gravacion de entrada con codigo nulo -------------------------------------------------------------------");
+		log.info("Probando gravacion de mesa con codigo nulo -------------------------------------------------------------------");
 		produtorDatos.m2.setCodigo(null);
     	try {
         	mesaDao.almacena(produtorDatos.m2);
@@ -284,7 +284,7 @@ public class R02_Camareros_Mesas {
     	Assert.assertTrue(excepcion);
 
     	log.info("");	
-		log.info("Probando gravacion de entrada con codigo duplicado --------------------------------------------------------------");
+		log.info("Probando gravacion de mesa con codigo duplicado --------------------------------------------------------------");
 		produtorDatos.m2.setCodigo(produtorDatos.m1.getCodigo());
     	try {
         	mesaDao.almacena(produtorDatos.m2);

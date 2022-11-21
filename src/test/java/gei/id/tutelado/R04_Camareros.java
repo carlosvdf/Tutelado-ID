@@ -267,8 +267,8 @@ public class R04_Camareros {
 		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
     	log.info("Obxectivo: Proba de violación de restricións not null e unique\n"   
     			+ "\t\t\t\t Casos contemplados:\n"
-    			+ "\t\t\t\t a) Gravación de usuario con nif duplicado\n"
-    			+ "\t\t\t\t b) Gravación de usuario con nif nulo\n");
+    			+ "\t\t\t\t a) Gravación de camarero con nif duplicado\n"
+    			+ "\t\t\t\t b) Gravación de camarero con nif nulo\n");
 
     	// Situación de partida:
     	// cam0 desligado, cam1 transitorio
@@ -286,7 +286,7 @@ public class R04_Camareros {
     	
     	// Nif nulo
     	log.info("");	
-		log.info("Probando gravacion de usuario con Nif nulo ----------------------------------------------------");
+		log.info("Probando gravacion de camarero con Nif nulo ----------------------------------------------------");
     	produtorDatos.cam1.setNif(null);
     	try {
         	empDao.almacena(produtorDatos.cam1);
