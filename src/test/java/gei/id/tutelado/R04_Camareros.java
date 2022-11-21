@@ -4,6 +4,8 @@ import gei.id.tutelado.configuracion.Configuracion;
 import gei.id.tutelado.configuracion.ConfiguracionJPA;
 import gei.id.tutelado.dao.CamareroDao;
 import gei.id.tutelado.dao.CamareroDaoJPA;
+import gei.id.tutelado.dao.EmpleadoDao;
+import gei.id.tutelado.dao.EmpleadoDaoJPA;
 import gei.id.tutelado.model.Camarero;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,6 +28,8 @@ public class R04_Camareros {
     
     private static Configuracion cfg;
     private static CamareroDao camDao;
+
+	private static EmpleadoDao empDao;
     
     @Rule
     public TestRule watcher = new TestWatcher() {
@@ -50,7 +54,10 @@ public class R04_Camareros {
 
     	camDao = new CamareroDaoJPA();
     	camDao.setup(cfg);
-    	
+
+		empDao = new EmpleadoDaoJPA();
+		empDao.setup(cfg);
+
     	produtorDatos = new ProdutorDatosCamareros();
     	produtorDatos.Setup(cfg);
     }
@@ -94,7 +101,7 @@ public class R04_Camareros {
 
     	log.info("Probando recuperacion por nif EXISTENTE --------------------------------------------------");
 
-    	c = (Camarero) camDao.recuperaPorNif(produtorDatos.cam0.getNif());
+    	c = (Camarero) empDao.recuperaPorNif(produtorDatos.cam0.getNif());
     	Assert.assertEquals(produtorDatos.cam0.getNif(),      c.getNif());
     	Assert.assertEquals(produtorDatos.cam0.getNombre(),     c.getNombre());
     	Assert.assertEquals(produtorDatos.cam0.getApellido1(), c.getApellido1());
@@ -106,7 +113,7 @@ public class R04_Camareros {
 		log.info("");
 		log.info("Probando recuperacion por nif INEXISTENTE -----------------------------------------------");
     	
-    	c = (Camarero) camDao.recuperaPorNif("iwbvyhuebvuwebvi");
+    	c = (Camarero) empDao.recuperaPorNif("iwbvyhuebvuwebvi");
     	Assert.assertNull (c);
 
     }
@@ -127,7 +134,7 @@ public class R04_Camareros {
     	// cam0 transitorio
     	
     	Assert.assertNull(produtorDatos.cam0.getId());
-    	camDao.almacena(produtorDatos.cam0);
+    	empDao.almacena(produtorDatos.cam0);
     	Assert.assertNotNull(produtorDatos.cam0.getId());
     }
 
@@ -148,9 +155,9 @@ public class R04_Camareros {
     	// Situación de partida:
     	// cam0 desligado
 
-    	Assert.assertNotNull(camDao.recuperaPorNif(produtorDatos.cam0.getNif()));
-    	camDao.elimina(produtorDatos.cam0);
-    	Assert.assertNull(camDao.recuperaPorNif(produtorDatos.cam0.getNif()));
+    	Assert.assertNotNull(empDao.recuperaPorNif(produtorDatos.cam0.getNif()));
+    	empDao.elimina(produtorDatos.cam0);
+    	Assert.assertNull(empDao.recuperaPorNif(produtorDatos.cam0.getNif()));
     }
 
     @Test 
@@ -174,13 +181,13 @@ public class R04_Camareros {
 
 		novoNome = new String ("Nome novo");
 
-		c1 = (Camarero) camDao.recuperaPorNif(produtorDatos.cam0.getNif());
+		c1 = (Camarero) empDao.recuperaPorNif(produtorDatos.cam0.getNif());
 		Assert.assertNotEquals(novoNome, c1.getNombre());
     	c1.setNombre(novoNome);
 
-    	camDao.modifica(c1);
+    	empDao.modifica(c1);
     	
-		c2 = (Camarero) camDao.recuperaPorNif(produtorDatos.cam0.getNif());
+		c2 = (Camarero) empDao.recuperaPorNif(produtorDatos.cam0.getNif());
 		Assert.assertEquals (novoNome, c2.getNombre());
 
     }
@@ -231,7 +238,7 @@ public class R04_Camareros {
     	
 		log.info("Probando (que non hai excepcion tras) acceso inicial a propiedade EAGER fora de sesion ----------------------------------------");
     	
-    	c = (Camarero)camDao.recuperaPorNif(produtorDatos.cam1.getNif());  
+    	c = (Camarero)empDao.recuperaPorNif(produtorDatos.cam1.getNif());
 		log.info("Acceso a mesas de camarero");
     	try	{
             for(int i = 0 ; i< produtorDatos.cam1.getMesas().size(); i++){
@@ -254,7 +261,7 @@ public class R04_Camareros {
 		log.info("Configurando situación de partida do test -----------------------------------------------------------------------");
 
 		produtorDatos.creaCamarerosSoltos();
-    	camDao.almacena(produtorDatos.cam0);
+    	empDao.almacena(produtorDatos.cam0);
     	
     	log.info("");	
 		log.info("Inicio do test --------------------------------------------------------------------------------------------------");
@@ -269,7 +276,7 @@ public class R04_Camareros {
 		log.info("Probando gravacion de usuario con Nif duplicado -----------------------------------------------");
     	produtorDatos.cam1.setNif(produtorDatos.cam0.getNif());
     	try {
-        	camDao.almacena(produtorDatos.cam1);
+        	empDao.almacena(produtorDatos.cam1);
         	excepcion=false;
     	} catch (Exception ex) {
     		excepcion=true;
@@ -282,7 +289,7 @@ public class R04_Camareros {
 		log.info("Probando gravacion de usuario con Nif nulo ----------------------------------------------------");
     	produtorDatos.cam1.setNif(null);
     	try {
-        	camDao.almacena(produtorDatos.cam1);
+        	empDao.almacena(produtorDatos.cam1);
         	excepcion=false;
     	} catch (Exception ex) {
     		excepcion=true;

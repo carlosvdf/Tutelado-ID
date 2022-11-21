@@ -5,7 +5,7 @@ import java.util.List;
 import gei.id.tutelado.configuracion.Configuracion;
 import gei.id.tutelado.model.Camarero;
 
-public interface CamareroDao extends EmpleadoDao{
+public interface CamareroDao {
     
     void setup (Configuracion config);
 
